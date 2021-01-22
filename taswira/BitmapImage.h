@@ -7,15 +7,16 @@
 #include <fstream>
 #include <stdexcept>
 #include <string>
+#include <iostream>
 
 namespace taswira {
     class BitmapImage {
     public:
         BitmapImage(int fileHeaderSize, int infoHeaderSize,
                     int width, int height, int bytesPerPixel, int pallets)
-            :FileSize(fileHeaderSize + infoHeaderSize + (width * height * bytesPerPixel)),
-            FileHeaderSize(fileHeaderSize),
+            :FileHeaderSize(fileHeaderSize),
             InfoHeaderSize(infoHeaderSize),
+            FileSize(fileHeaderSize + infoHeaderSize + (width * height * bytesPerPixel)),
             Width(width),
             Height(height),
             BytesPerPixel(bytesPerPixel),
@@ -30,12 +31,14 @@ namespace taswira {
         }
 
         ~BitmapImage(void) {
-            if (!PixelData) {
+            if (!PixelData || PixelData != NULL || PixelData != nullptr) {
                 for (int i=0; i<Height; ++i) {
                     delete [] PixelData[i];
+                    PixelData[i] = nullptr;
                 }
 
                 delete [] PixelData;
+                PixelData = nullptr;
             }
         }
 
@@ -56,8 +59,8 @@ namespace taswira {
             fout.write((char *) &InfoHeader, InfoHeaderSize);
 
             // writing pixel data
-            for (size_t i=0; i<Height; ++i) {
-                for (size_t j=0; j<Width; ++j) {
+            for (int i=0; i<Height; ++i) {
+                for (int j=0; j<Width; ++j) {
                     fout.write((char *) &PixelData[i][j], BytesPerPixel);
                 }
             }
@@ -65,6 +68,18 @@ namespace taswira {
         }
 
         //---- Getters
+        int& ImageFileHeaderSize(void) {
+            return FileHeaderSize;
+        }
+
+        int& ImageInfoHeaderSize(void) {
+            return InfoHeaderSize;
+        }
+
+        int& ImageFileSize(void) {
+            return FileSize;
+        }
+
         int& ImageWidth(void) {
             return Width;
         }
@@ -73,10 +88,30 @@ namespace taswira {
             return Height;
         }
 
+        int& ImageBytesPerPixel(void) {
+            return BytesPerPixel;
+        }
+
+        int& ImagePallets(void) {
+            return Pallets;
+        }
+
+        taswira::BitmapFileHeader& ImageFileHeader(void) {
+            return FileHeader;
+        }
+
+        taswira::BitmapInfoHeader& ImageInfoHeader(void) {
+            return InfoHeader;
+        }
+
+        taswira::Pixel** ImagePixelData(void) {
+            return PixelData;
+        }
+
     private:
-        int FileSize;
         int FileHeaderSize;
         int InfoHeaderSize;
+        int FileSize;
         int Width;
         int Height;
         int BytesPerPixel;
