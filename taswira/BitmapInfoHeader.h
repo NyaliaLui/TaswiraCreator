@@ -32,20 +32,20 @@ namespace taswira {
             Size3(0),
             Size4(0),
             Width1(width),
-            Width2(width >>  8),
-            Width3(width >>  16),
-            Width4(width >>  24),
+            Width2(width >> 8),
+            Width3(width >> 16),
+            Width4(width >> 24),
             Height1(height),
-            Height2(height >>  8),
-            Height3(height >>  16),
-            Height4(height >>  24),
+            Height2(height >> 8),
+            Height3(height >> 16),
+            Height4(height >> 24),
             Planes1(1),
             Planes2(0),
-            BitsPerPixel1(bytesPerPixel * pallets),
+            BitsPerPixel1(bytesPerPixel* pallets),
             BitsPerPixel2(0)
         {
-            for (int i=0; i<24; ++i) {
-                EverythingElse[i] = (char) 0;
+            for (int i = 0; i < 24; ++i) {
+                EverythingElse[i] = (char)0;
             }
         }
     };
