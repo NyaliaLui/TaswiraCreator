@@ -1,4 +1,4 @@
-#include "../taswira/BitmapImage.h"
+#include "BitmapImage.h"
 #include <iostream>
 #include <cassert>
 #include <filesystem>
