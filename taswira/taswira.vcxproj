@@ -146,6 +146,7 @@
     <ClInclude Include="BitmapFileHeader.h" />
     <ClInclude Include="BitmapImage.h" />
     <ClInclude Include="BitmapInfoHeader.h" />
+    <ClInclude Include="Connector.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Shapes.h" />
@@ -155,7 +156,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="nyalia.bmp" />
+    <Image Include="myimage.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

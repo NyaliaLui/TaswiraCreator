@@ -45,6 +45,9 @@
     <ClInclude Include="Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Connector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -52,7 +55,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="nyalia.bmp">
+    <Image Include="myimage.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

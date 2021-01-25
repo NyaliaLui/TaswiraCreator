@@ -4,6 +4,7 @@
 #include "Shapes.h"
 #include "BitmapImage.h"
 #include "AlphaDims.h"
+#include "Geometry.h"
 
 namespace taswira {
 
@@ -19,32 +20,17 @@ namespace taswira {
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                // top horizontal bar
-                for (int col = startCol + 4; col < startCol + 12; ++col) {
-                    image.PixelAt(startRow + 15, col) = this->ShapeColor();
-                }
 
-                image.PixelAt(startRow + 14, startCol + 4) = this->ShapeColor(); image.PixelAt(startRow + 14, startCol + 11) = this->ShapeColor();
-                image.PixelAt(startRow + 13, startCol + 4) = this->ShapeColor(); image.PixelAt(startRow + 13, startCol + 11) = this->ShapeColor();
-                image.PixelAt(startRow + 12, startCol + 4) = this->ShapeColor(); image.PixelAt(startRow + 12, startCol + 11) = this->ShapeColor();
-                image.PixelAt(startRow + 11, startCol + 3) = this->ShapeColor(); image.PixelAt(startRow + 11, startCol + 12) = this->ShapeColor();
-                image.PixelAt(startRow + 10, startCol + 3) = this->ShapeColor(); image.PixelAt(startRow + 10, startCol + 12) = this->ShapeColor();
-                image.PixelAt(startRow + 9, startCol + 3) = this->ShapeColor(); image.PixelAt(startRow + 9, startCol + 12) = this->ShapeColor();
-                image.PixelAt(startRow + 8, startCol + 3) = this->ShapeColor(); image.PixelAt(startRow + 8, startCol + 12) = this->ShapeColor();
+                // left diagonal
+                taswira::Geometry::DrawLineOnImage(image, startRow, startCol, startRow + 15, startCol + 8, this->ShapeColor());
 
-                // middle horizontal bar
-                for (int col = startCol + 2; col < startCol + 14; ++col) {
+                // right diagonal
+                taswira::Geometry::DrawLineOnImage(image, startRow + 15, startCol + 8, startRow, startCol + 15, this->ShapeColor());
+
+                // horizontal bar
+                for (int col = startCol + 3; col < startCol + 13; ++col) {
                     image.PixelAt(startRow + 7, col) = this->ShapeColor();
                 }
-
-                image.PixelAt(startRow + 6, startCol + 2) = this->ShapeColor(); image.PixelAt(startRow + 6, startCol + 13) = this->ShapeColor();
-                image.PixelAt(startRow + 5, startCol + 2) = this->ShapeColor(); image.PixelAt(startRow + 5, startCol + 13) = this->ShapeColor();
-                image.PixelAt(startRow + 4, startCol + 2) = this->ShapeColor(); image.PixelAt(startRow + 4, startCol + 13) = this->ShapeColor();
-                image.PixelAt(startRow + 3, startCol + 1) = this->ShapeColor(); image.PixelAt(startRow + 3, startCol + 14) = this->ShapeColor();
-                image.PixelAt(startRow + 3, startCol) = this->ShapeColor(); image.PixelAt(startRow + 3, startCol + 15) = this->ShapeColor();
-                image.PixelAt(startRow + 2, startCol) = this->ShapeColor(); image.PixelAt(startRow + 2, startCol + 15) = this->ShapeColor();
-                image.PixelAt(startRow + 1, startCol) = this->ShapeColor(); image.PixelAt(startRow + 1, startCol + 15) = this->ShapeColor();
-                image.PixelAt(startRow, startCol) = this->ShapeColor(); image.PixelAt(startRow, startCol + 15) = this->ShapeColor();
             }
         };
 

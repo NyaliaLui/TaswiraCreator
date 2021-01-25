@@ -1,6 +1,7 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
+#include "Connector.h"
 #include "Pixel.h"
 #include "BitmapImage.h"
 #include <cmath>
@@ -31,6 +32,10 @@ namespace taswira {
                     col1 += SCol;
                 }
             }
+        }
+
+        static void DrawLineOnImage(taswira::BitmapImage& image, taswira::Connector& conn1, taswira::Connector& conn2, taswira::Pixel& color) {
+            DrawLineOnImage(image, conn1.RowLocation(), conn1.ColLocation(), conn2.RowLocation(), conn2.ColLocation(), color);
         }
     }
 }
