@@ -15,6 +15,9 @@ namespace taswira {
             :Color(color)
         {  }
 
+        virtual ~IBaseShape(void)
+        {  }
+
         taswira::Pixel& ShapeColor(void) {
             return this->Color;
         }

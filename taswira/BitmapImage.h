@@ -13,13 +13,13 @@ namespace taswira {
     class BitmapImage {
     public:
         BitmapImage(int fileHeaderSize, int infoHeaderSize,
-            int width, int height, int bytesPerPixel, int pallets)
+            int height, int width, int bytesPerPixel, int pallets)
             :FileHeaderSize(fileHeaderSize),
             InfoHeaderSize(infoHeaderSize),
             FileSize(fileHeaderSize + infoHeaderSize + (width * height * bytesPerPixel)),
             PixelPadding(25),
-            Width(width),
             Height(height),
+            Width(width),
             BytesPerPixel(bytesPerPixel),
             Pallets(pallets),
             LeftMargin(PixelPadding),
@@ -138,8 +138,8 @@ namespace taswira {
         int InfoHeaderSize;
         int FileSize;
         int PixelPadding;
-        int Width;
         int Height;
+        int Width;
         int BytesPerPixel;
         int Pallets;
         int LeftMargin;
@@ -155,8 +155,8 @@ namespace taswira {
             InfoHeaderSize(0),
             FileSize(0),
             PixelPadding(25),
-            Width(0),
             Height(0),
+            Width(0),
             BytesPerPixel(0),
             Pallets(0),
             LeftMargin(0),
