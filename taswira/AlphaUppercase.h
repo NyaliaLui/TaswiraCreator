@@ -210,7 +210,7 @@ namespace taswira {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
                     image.PixelAt(startRow, col) = this->ShapeColor();
 
-                    if (col >= (startCol + 11) && col <= (startRow + this->ShapeWidth())) {
+                    if (col >= (startCol + 11) && col <= (startCol + this->ShapeWidth())) {
                         image.PixelAt(startRow + 8, col) = this->ShapeColor();
                     }
                 }

@@ -27,6 +27,9 @@ namespace taswira {
             Red(pixel.Red)
         {  }
 
+        ~Pixel(void)
+        {  }
+
         Pixel& operator = (const Pixel& pixel) {
             this->Blue = pixel.Blue;
             this->Green = pixel.Green;

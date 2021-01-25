@@ -2,9 +2,127 @@
 #define SHAPES_H
 
 #include "BaseShape.h"
+#include "Geometry.h"
 #include "BitmapImage.h"
 
 namespace taswira {
+    class Triangle : public taswira::IBaseShape {
+    public:
+        Triangle(void)
+            :LineLength(0)
+        {  }
+
+        Triangle(int lineLength, const taswira::Pixel& color)
+            :IBaseShape(color),
+            LineLength(lineLength)
+        {  }
+
+        ~Triangle(void)
+        {  }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int VertexRow1 = startRow, VertexCol1 = startCol;
+            int VertexRow2 = startRow + this->LineLength, VertexCol2 = startCol + (this->LineLength / 2);
+            int VertexRow3 = startRow, VertexCol3 = startCol  + (this->LineLength);
+
+            // diagonal lines
+            taswira::Geometry::DrawLineOnImage(image, VertexRow1, VertexCol1, VertexRow2, VertexCol2, this->ShapeColor());
+            taswira::Geometry::DrawLineOnImage(image, VertexRow2, VertexCol2, VertexRow3, VertexCol3, this->ShapeColor());
+
+            // horizontal line
+            for (int col = startCol; col < VertexCol3; ++col) {
+                image.PixelAt(startRow, col) = this->ShapeColor();
+            }
+        }
+
+        int& ShapeLineLength(void) {
+            return this->LineLength;
+        }
+
+    private:
+        int LineLength;
+    };
+
+    class Parallelogram : public taswira::IBaseShape {
+    public:
+        Parallelogram(void)
+            :RowDims(0),
+            ColDims(0)
+        {  }
+
+        Parallelogram(int rowDims, int colDims, const taswira::Pixel& color)
+            :IBaseShape(color),
+            RowDims(rowDims),
+            ColDims(colDims)
+        {  }
+
+        virtual ~Parallelogram(void)
+        {  }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            // do nothing;
+        }
+
+        int& ShapeHeight(void) {
+            return this->RowDims;
+        }
+
+        int& ShapeWidth(void) {
+            return this->ColDims;
+        }
+
+    private:
+        int RowDims;
+        int ColDims;
+    };
+
+    class Rectangle : public Parallelogram {
+    public:
+        Rectangle(void)
+            :Parallelogram()
+        {  }
+
+        Rectangle(int rowDims, int colDims, const taswira::Pixel& color)
+            :Parallelogram(rowDims, colDims, color)
+        {  }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int RowLen = startRow + this->ShapeHeight();
+            int ColLen = startCol + this->ShapeWidth();
+
+            // draw top line
+            for (int col = startCol; col < ColLen; ++col) {
+                image.PixelAt(startRow, col) = this->ShapeColor();
+            }
+
+            // draw bottom line
+            for (int col = startCol; col < ColLen; ++col) {
+                image.PixelAt(RowLen - 1, col) = this->ShapeColor();
+            }
+
+            // draw left line
+            for (int row = startRow; row < RowLen; ++row) {
+                image.PixelAt(row, startCol) = this->ShapeColor();
+            }
+
+            // draw right line
+            for (int row = startRow; row < RowLen; ++row) {
+                image.PixelAt(row, ColLen - 1) = this->ShapeColor();
+            }
+        }
+    };
+
+    class Square : public Rectangle {
+    public:
+        Square(void)
+            :Rectangle()
+        {  }
+
+        Square(int dims, const taswira::Pixel& color)
+            :Rectangle(dims, dims, color)
+        {  }
+    };
+
     class Circle : public taswira::IBaseShape {
     public:
         Circle(void)
@@ -14,6 +132,9 @@ namespace taswira {
         Circle(int radius, const taswira::Pixel& color)
             :IBaseShape(color),
             Radius(radius)
+        {  }
+
+        ~Circle(void)
         {  }
 
         // Uses the Midpoint Circle Algorithm modified from https://www.geeksforgeeks.org/mid-point-circle-drawing-algorithm/
@@ -68,94 +189,6 @@ namespace taswira {
 
     private:
         int Radius;
-    };
-
-    class Parallelogram : public taswira::IBaseShape {
-    public:
-        Parallelogram(void)
-            :RowDims(0),
-            ColDims(0)
-        {  }
-
-        Parallelogram(int rowDims, int colDims, const taswira::Pixel &color)
-            :IBaseShape(color),
-            RowDims(rowDims),
-            ColDims(colDims)
-        {  }
-
-        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-            // do nothing;
-        }
-
-        int& ShapeWidth(void) {
-            return this->RowDims;
-        }
-
-        int& ShapeHeight(void) {
-            return this->ColDims;
-        }
-
-    private:
-        int RowDims;
-        int ColDims;
-    };
-
-    class FilledInSquare : public Parallelogram {
-    public:
-        FilledInSquare(void)
-            :Parallelogram()
-        {  }
-
-        FilledInSquare(int rowDims, int colDims, const taswira::Pixel& color)
-            :Parallelogram(rowDims, colDims, color)
-        {  }
-
-        virtual void DrawOnImage(taswira::BitmapImage &image, int startRow, int startCol) {
-            int RowLen = startRow + this->ShapeWidth();
-            int ColLen = startCol + this->ShapeHeight();
-
-            for (int row = startRow; row < RowLen; ++row) {
-                for (int j = startCol; j < ColLen; ++j) {
-                    image.PixelAt(row, j) = this->ShapeColor();
-                }
-            }
-        }
-    };
-
-    class EmptySquare : public Parallelogram {
-    public:
-        EmptySquare(void)
-            :Parallelogram()
-        {  }
-
-        EmptySquare(int rowDims, int colDims, const taswira::Pixel& color)
-            :Parallelogram(rowDims, colDims, color)
-        {  }
-
-        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-            int RowLen = startRow + this->ShapeWidth();
-            int ColLen = startCol + this->ShapeHeight();
-
-            // draw top line
-            for (int col = startCol; col < ColLen; ++col) {
-                image.PixelAt(startRow, col) = this->ShapeColor();
-            }
-
-            // draw bottom line
-            for (int col = startCol; col < ColLen; ++col) {
-                image.PixelAt(RowLen - 1, col) = this->ShapeColor();
-            }
-
-            // draw left line
-            for (int row = startRow; row < RowLen; ++row) {
-                image.PixelAt(row, startCol) = this->ShapeColor();
-            }
-
-            // draw right line
-            for (int row = startRow; row < RowLen; ++row) {
-                image.PixelAt(row, ColLen - 1) = this->ShapeColor();
-            }
-        }
     };
 }
 
