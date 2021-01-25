@@ -66,16 +66,17 @@ namespace taswira {
             return this->Radius;
         }
 
-    private:
-        int Radius;
+    protected:
+        virtual void DrawSquareOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            // do nothing;
+        }
 
         virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             // do nothing
         }
 
-        virtual void DrawSquareOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-            // do nothing;
-        }
+    private:
+        int Radius;
     };
 
     class Square : public taswira::IBaseShape {
@@ -103,10 +104,7 @@ namespace taswira {
             return this->ColDims;
         }
 
-    private:
-        int RowDims;
-        int ColDims;
-
+    protected:
         virtual void DrawCircleOnImage(taswira::BitmapImage& image, int CenterX, int CenterY) {
             // do nothing
         }
@@ -114,6 +112,10 @@ namespace taswira {
         virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             // do nothing
         }
+
+    private:
+        int RowDims;
+        int ColDims;
     };
 
     class FilledInSquare : public Square {
