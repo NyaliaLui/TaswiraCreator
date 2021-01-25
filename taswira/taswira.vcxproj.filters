@@ -36,6 +36,12 @@
     <ClInclude Include="BaseShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AlphaUppercase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaDims.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
