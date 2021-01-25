@@ -9,14 +9,14 @@
 namespace taswira {
 
     namespace Uppercase {
-        class A : public taswira::Square {
+        class A : public taswira::Parallelogram {
         public:
             A(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             A(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -34,14 +34,14 @@ namespace taswira {
             }
         };
 
-        class B : public taswira::Square {
+        class B : public taswira::Parallelogram {
         public:
             B(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             B(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -74,14 +74,14 @@ namespace taswira {
             }
         };
 
-        class C : public taswira::Square {
+        class C : public taswira::Parallelogram {
         public:
             C(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             C(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -106,14 +106,14 @@ namespace taswira {
             }
         };
 
-        class D : public taswira::Square {
+        class D : public taswira::Parallelogram {
         public:
             D(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             D(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -145,14 +145,14 @@ namespace taswira {
             }
         };
 
-        class E : public taswira::Square {
+        class E : public taswira::Parallelogram {
         public:
             E(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             E(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -170,14 +170,14 @@ namespace taswira {
             }
         };
 
-        class F : public taswira::Square {
+        class F : public taswira::Parallelogram {
         public:
             F(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             F(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -194,14 +194,14 @@ namespace taswira {
             }
         };
 
-        class G : public taswira::Square {
+        class G : public taswira::Parallelogram {
         public:
             G(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             G(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -226,14 +226,14 @@ namespace taswira {
             }
         };
 
-        class H : public taswira::Square {
+        class H : public taswira::Parallelogram {
         public:
             H(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             H(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -250,14 +250,14 @@ namespace taswira {
             }
         };
 
-        class I : public taswira::Square {
+        class I : public taswira::Parallelogram {
         public:
             I(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             I(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -274,14 +274,14 @@ namespace taswira {
             }
         };
 
-        class J : public taswira::Square {
+        class J : public taswira::Parallelogram {
         public:
             J(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             J(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -305,14 +305,14 @@ namespace taswira {
             }
         };
 
-        class K : public taswira::Square {
+        class K : public taswira::Parallelogram {
         public:
             K(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             K(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -337,14 +337,14 @@ namespace taswira {
             }
         };
 
-        class L : public taswira::Square {
+        class L : public taswira::Parallelogram {
         public:
             L(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             L(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -360,14 +360,14 @@ namespace taswira {
             }
         };
 
-        class M : public taswira::Square {
+        class M : public taswira::Parallelogram {
         public:
             M(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             M(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -398,14 +398,14 @@ namespace taswira {
             }
         };
 
-        class N : public taswira::Square {
+        class N : public taswira::Parallelogram {
         public:
             N(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             N(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -424,14 +424,14 @@ namespace taswira {
             }
         };
 
-        class O : public taswira::Square {
+        class O : public taswira::Parallelogram {
         public:
             O(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             O(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color),
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color),
                 OCircle(6, color)
             {  }
 
@@ -442,14 +442,14 @@ namespace taswira {
             taswira::Circle OCircle;
         };
 
-        class P : public taswira::Square {
+        class P : public taswira::Parallelogram {
         public:
             P(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             P(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -474,14 +474,14 @@ namespace taswira {
             }
         };
 
-        class Q : public taswira::Square {
+        class Q : public taswira::Parallelogram {
         public:
             Q(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             Q(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color),
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color),
                 QCircle(6, color)
             {  }
 
@@ -495,14 +495,14 @@ namespace taswira {
             taswira::Circle QCircle;
         };
 
-        class R : public taswira::Square {
+        class R : public taswira::Parallelogram {
         public:
             R(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             R(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -534,14 +534,14 @@ namespace taswira {
             }
         };
 
-        class S : public taswira::Square {
+        class S : public taswira::Parallelogram {
         public:
             S(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             S(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -564,14 +564,14 @@ namespace taswira {
             }
         };
 
-        class T : public taswira::Square {
+        class T : public taswira::Parallelogram {
         public:
             T(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             T(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -587,14 +587,14 @@ namespace taswira {
             }
         };
 
-        class U : public taswira::Square {
+        class U : public taswira::Parallelogram {
         public:
             U(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             U(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -611,14 +611,14 @@ namespace taswira {
             }
         };
 
-        class V : public taswira::Square {
+        class V : public taswira::Parallelogram {
         public:
             V(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             V(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -637,14 +637,14 @@ namespace taswira {
             }
         };
 
-        class W : public taswira::Square {
+        class W : public taswira::Parallelogram {
         public:
             W(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             W(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -682,14 +682,14 @@ namespace taswira {
             }
         };
 
-        class X : public taswira::Square {
+        class X : public taswira::Parallelogram {
         public:
             X(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             X(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -709,14 +709,14 @@ namespace taswira {
             }
         };
 
-        class Y : public taswira::Square {
+        class Y : public taswira::Parallelogram {
         public:
             Y(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             Y(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -738,14 +738,14 @@ namespace taswira {
             }
         };
 
-        class Z : public taswira::Square {
+        class Z : public taswira::Parallelogram {
         public:
             Z(void)
-                :Square()
+                :Parallelogram()
             {  }
 
             Z(const taswira::Pixel& color)
-                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
+                :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {

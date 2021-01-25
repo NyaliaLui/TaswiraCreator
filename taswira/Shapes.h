@@ -70,14 +70,14 @@ namespace taswira {
         int Radius;
     };
 
-    class Square : public taswira::IBaseShape {
+    class Parallelogram : public taswira::IBaseShape {
     public:
-        Square(void)
+        Parallelogram(void)
             :RowDims(0),
             ColDims(0)
         {  }
 
-        Square(int rowDims, int colDims, const taswira::Pixel &color)
+        Parallelogram(int rowDims, int colDims, const taswira::Pixel &color)
             :IBaseShape(color),
             RowDims(rowDims),
             ColDims(colDims)
@@ -100,14 +100,14 @@ namespace taswira {
         int ColDims;
     };
 
-    class FilledInSquare : public Square {
+    class FilledInSquare : public Parallelogram {
     public:
         FilledInSquare(void)
-            :Square()
+            :Parallelogram()
         {  }
 
         FilledInSquare(int rowDims, int colDims, const taswira::Pixel& color)
-            :Square(rowDims, colDims, color)
+            :Parallelogram(rowDims, colDims, color)
         {  }
 
         virtual void DrawOnImage(taswira::BitmapImage &image, int startRow, int startCol) {
@@ -122,14 +122,14 @@ namespace taswira {
         }
     };
 
-    class EmptySquare : public Square {
+    class EmptySquare : public Parallelogram {
     public:
         EmptySquare(void)
-            :Square()
+            :Parallelogram()
         {  }
 
         EmptySquare(int rowDims, int colDims, const taswira::Pixel& color)
-            :Square(rowDims, colDims, color)
+            :Parallelogram(rowDims, colDims, color)
         {  }
 
         virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
