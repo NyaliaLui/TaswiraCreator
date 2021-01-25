@@ -17,14 +17,15 @@ namespace taswira {
             :FileHeaderSize(fileHeaderSize),
             InfoHeaderSize(infoHeaderSize),
             FileSize(fileHeaderSize + infoHeaderSize + (width * height * bytesPerPixel)),
+            PixelPadding(25),
             Width(width),
             Height(height),
             BytesPerPixel(bytesPerPixel),
             Pallets(pallets),
-            LeftMargin(25),
-            RightMargin(width - LeftMargin),
-            BottomMargin(25),
-            TopMargin(height - 75),
+            LeftMargin(PixelPadding),
+            RightMargin(width - PixelPadding),
+            BottomMargin(PixelPadding),
+            TopMargin(height - PixelPadding),
             FileHeader(FileSize, fileHeaderSize, infoHeaderSize),
             InfoHeader(width, height, infoHeaderSize, bytesPerPixel, pallets),
             PixelData(new Pixel* [height])
@@ -84,6 +85,10 @@ namespace taswira {
             return this->FileSize;
         }
 
+        int& ImagePixelPadding(void) {
+            return this->PixelPadding;
+        }
+
         int& ImageWidth(void) {
             return this->Width;
         }
@@ -132,6 +137,7 @@ namespace taswira {
         int FileHeaderSize;
         int InfoHeaderSize;
         int FileSize;
+        int PixelPadding;
         int Width;
         int Height;
         int BytesPerPixel;
@@ -145,9 +151,10 @@ namespace taswira {
         taswira::Pixel** PixelData;
 
         BitmapImage(void)
-            :FileSize(0),
-            FileHeaderSize(0),
+            :FileHeaderSize(0),
             InfoHeaderSize(0),
+            FileSize(0),
+            PixelPadding(25),
             Width(0),
             Height(0),
             BytesPerPixel(0),

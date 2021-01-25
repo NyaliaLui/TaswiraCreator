@@ -146,6 +146,7 @@
     <ClInclude Include="BitmapFileHeader.h" />
     <ClInclude Include="BitmapImage.h" />
     <ClInclude Include="BitmapInfoHeader.h" />
+    <ClInclude Include="Geometry.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="Taswira.h" />

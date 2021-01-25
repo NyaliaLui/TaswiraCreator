@@ -17,7 +17,7 @@ namespace taswira {
         {  }
 
         // Uses the Midpoint Circle Algorithm modified from https://www.geeksforgeeks.org/mid-point-circle-drawing-algorithm/
-        virtual void DrawCircleOnImage(taswira::BitmapImage& image, int CenterX, int CenterY) {
+        virtual void DrawOnImage(taswira::BitmapImage& image, int CenterX, int CenterY) {
             int X = Radius, Y = 0;
 
             if (Radius > 0) {
@@ -66,15 +66,6 @@ namespace taswira {
             return this->Radius;
         }
 
-    protected:
-        virtual void DrawSquareOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-            // do nothing;
-        }
-
-        virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-            // do nothing
-        }
-
     private:
         int Radius;
     };
@@ -92,7 +83,7 @@ namespace taswira {
             ColDims(colDims)
         {  }
 
-        virtual void DrawSquareOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             // do nothing;
         }
 
@@ -102,15 +93,6 @@ namespace taswira {
 
         int& ShapeHeight(void) {
             return this->ColDims;
-        }
-
-    protected:
-        virtual void DrawCircleOnImage(taswira::BitmapImage& image, int CenterX, int CenterY) {
-            // do nothing
-        }
-
-        virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-            // do nothing
         }
 
     private:
@@ -128,7 +110,7 @@ namespace taswira {
             :Square(rowDims, colDims, color)
         {  }
 
-        virtual void DrawSquareOnImage(taswira::BitmapImage &image, int startRow, int startCol) {
+        virtual void DrawOnImage(taswira::BitmapImage &image, int startRow, int startCol) {
             int RowLen = startRow + this->ShapeWidth();
             int ColLen = startCol + this->ShapeHeight();
 
@@ -150,7 +132,7 @@ namespace taswira {
             :Square(rowDims, colDims, color)
         {  }
 
-        virtual void DrawSquareOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             int RowLen = startRow + this->ShapeWidth();
             int ColLen = startCol + this->ShapeHeight();
 

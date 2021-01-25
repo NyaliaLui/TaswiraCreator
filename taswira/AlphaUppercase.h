@@ -18,7 +18,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // top horizontal bar
                 for (int col = startCol + 4; col < startCol + 12; ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -58,7 +58,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol; col < startCol + 13; ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -98,7 +98,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol + 4; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -130,7 +130,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol; col < startCol + 11; ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -169,7 +169,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -194,7 +194,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -218,7 +218,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -250,7 +250,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bar
                 for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 7, col) = this->ShapeColor();
@@ -274,7 +274,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol + 4; col < startCol + 11; ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -298,7 +298,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // vertical bar
                 for (int row = startRow + 4; row < startRow + this->ShapeHeight(); ++row) {
                     image.PixelAt(row, startCol + 15) = this->ShapeColor();
@@ -329,7 +329,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // vertical bar
                 for (int row = startRow; row < startRow + this->ShapeHeight(); ++row) {
                     image.PixelAt(row, startCol) = this->ShapeColor();
@@ -361,7 +361,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bar
                 for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow, col) = this->ShapeColor();
@@ -384,7 +384,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // vertical bars
                 for (int row = startRow; row < startRow + this->ShapeHeight(); ++row) {
                     image.PixelAt(row, startCol) = this->ShapeColor();
@@ -422,7 +422,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // vertical bars
                 for (int row = startRow; row < startRow + this->ShapeHeight(); ++row) {
                     image.PixelAt(row, startCol) = this->ShapeColor();
@@ -438,19 +438,22 @@ namespace taswira {
             }
         };
 
-        class O : public taswira::Circle {
+        class O : public taswira::Square {
         public:
             O(void)
-                :Circle()
+                :Square()
             {  }
 
             O(const taswira::Pixel& color)
-                :Circle(6, color)
+                :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color),
+                OCircle(6, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                this->DrawCircleOnImage(image, startRow, startCol);
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+                this->OCircle.DrawOnImage(image, startRow + (this->ShapeHeight() / 2), startCol + (this->ShapeWidth() / 2));
             }
+        private:
+            taswira::Circle OCircle;
         };
 
         class P : public taswira::Square {
@@ -463,7 +466,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol; col < startCol + 13; ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -496,8 +499,8 @@ namespace taswira {
                 QCircle(6, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                this->QCircle.DrawCircleOnImage(image, startRow + 9, startCol + 8);
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+                this->QCircle.DrawOnImage(image, startRow + 9, startCol + 8);
                 image.PixelAt(startRow + 2, startCol + 10) = this->ShapeColor();
                 image.PixelAt(startRow + 1, startCol + 11) = this->ShapeColor();
                 image.PixelAt(startRow, startCol + 12) = this->ShapeColor();
@@ -516,7 +519,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
                 for (int col = startCol; col < startCol + 13; ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -555,7 +558,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bar
                 for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -585,7 +588,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bar
                 for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
@@ -608,7 +611,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // vertical bars
                 for (int row = startRow; row < startRow + this->ShapeHeight(); ++row) {
                     image.PixelAt(row, startCol) = this->ShapeColor();
@@ -632,7 +635,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // diagonal lines
                 int col1 = startCol + 8;
                 int col2 = startCol + 8;
@@ -658,7 +661,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // two mid points
                 image.PixelAt(startRow, startCol + 5) = this->ShapeColor();
                 image.PixelAt(startCol, startCol + 10) = this->ShapeColor();
@@ -703,7 +706,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // first diagonal line
                 int col = startCol;
                 for (int row = startRow + this->ShapeHeight() - 1; row >= startRow; --row) {
@@ -730,7 +733,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // diagonal lines
                 int col1 = startCol + 8;
                 int col2 = startCol + 8;
@@ -759,7 +762,7 @@ namespace taswira {
                 :Square(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color)
             {  }
 
-            virtual void DrawAlphaCharOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bar
                 for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
