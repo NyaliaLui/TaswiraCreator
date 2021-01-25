@@ -9,12 +9,12 @@ namespace taswira {
     class Triangle : public taswira::IBaseShape {
     public:
         Triangle(void)
-            :LineLength(0)
+            :LineLen(0)
         {  }
 
         Triangle(int lineLength, const taswira::Pixel& color)
             :IBaseShape(color),
-            LineLength(lineLength)
+            LineLen(lineLength)
         {  }
 
         ~Triangle(void)
@@ -22,8 +22,8 @@ namespace taswira {
 
         virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             int VertexRow1 = startRow, VertexCol1 = startCol;
-            int VertexRow2 = startRow + this->LineLength, VertexCol2 = startCol + (this->LineLength / 2);
-            int VertexRow3 = startRow, VertexCol3 = startCol  + (this->LineLength);
+            int VertexRow2 = startRow + this->LineLen, VertexCol2 = startCol + (this->LineLen / 2);
+            int VertexRow3 = startRow, VertexCol3 = startCol  + (this->LineLen);
 
             // diagonal lines
             taswira::Geometry::DrawLineOnImage(image, VertexRow1, VertexCol1, VertexRow2, VertexCol2, this->ShapeColor());
@@ -36,11 +36,11 @@ namespace taswira {
         }
 
         int& ShapeLineLength(void) {
-            return this->LineLength;
+            return this->LineLen;
         }
 
     private:
-        int LineLength;
+        int LineLen;
     };
 
     class Parallelogram : public taswira::IBaseShape {
@@ -121,6 +121,32 @@ namespace taswira {
         Square(int dims, const taswira::Pixel& color)
             :Rectangle(dims, dims, color)
         {  }
+    };
+
+    class Diamond : public Parallelogram {
+    public:
+        Diamond(void)
+            :Parallelogram()
+        {  }
+
+        Diamond(int dims, const taswira::Pixel& color)
+            :Parallelogram(dims, dims, color)
+        {  }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int LineLen = this->ShapeHeight();
+
+            int VertexRow1 = startRow + (LineLen / 2), VertexCol1 = startCol;
+            int VertexRow2 = startRow + LineLen - 1, VertexCol2 = startCol + (LineLen / 2);
+            int VertexRow3 = startRow + (LineLen / 2), VertexCol3 = startCol + LineLen - 1;
+            int VertexRow4 = startRow, VertexCol4 = startCol + (LineLen / 2);
+
+            // diagonal lines
+            taswira::Geometry::DrawLineOnImage(image, VertexRow1, VertexCol1, VertexRow2, VertexCol2, this->ShapeColor());
+            taswira::Geometry::DrawLineOnImage(image, VertexRow2, VertexCol2, VertexRow3, VertexCol3, this->ShapeColor());
+            taswira::Geometry::DrawLineOnImage(image, VertexRow3, VertexCol3, VertexRow4, VertexCol4, this->ShapeColor());
+            taswira::Geometry::DrawLineOnImage(image, VertexRow4, VertexCol4, VertexRow1, VertexCol1, this->ShapeColor());
+        }
     };
 
     class Circle : public taswira::IBaseShape {
