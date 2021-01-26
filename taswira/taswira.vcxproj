@@ -151,6 +151,7 @@
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="Taswira.h" />
+    <ClInclude Include="TextBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />

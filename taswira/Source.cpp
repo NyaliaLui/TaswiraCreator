@@ -1,6 +1,6 @@
 #include "Taswira.h"
 #include <iostream>
-#include <array>
+#include <vector>
 #include <memory>
 
 int main(void) {
@@ -8,17 +8,19 @@ int main(void) {
     taswira::BitmapImage image(14, 40, 512, 512, 3, 8);
 
     //Create array of shapes to draw
-    taswira::Rectangle rectangle(100, 50, taswira::Colors::Green);
-    taswira::Square square(50, taswira::Colors::Blue);
-    taswira::Circle circle(10, taswira::Colors::White);
-    taswira::Triangle triangle(20, taswira::Colors::Red);
-    taswira::Diamond diamond(25, taswira::Colors::Green);
+    std::vector<std::shared_ptr<taswira::IBaseShape>> Word;
+    Word.push_back(std::make_shared<taswira::Uppercase::T>(taswira::Colors::White));
+    Word.push_back(std::make_shared<taswira::Uppercase::A>(taswira::Colors::White));
+    Word.push_back(std::make_shared<taswira::Uppercase::S>(taswira::Colors::White));
+    Word.push_back(std::make_shared<taswira::Uppercase::W>(taswira::Colors::White));
+    Word.push_back(std::make_shared<taswira::Uppercase::I>(taswira::Colors::White));
+    Word.push_back(std::make_shared<taswira::Uppercase::R>(taswira::Colors::White));
+    Word.push_back(std::make_shared<taswira::Uppercase::A>(taswira::Colors::White));  
 
-    rectangle.DrawOnImage(image, 25, 25);
-    square.DrawOnImage(image, 100, 100);
-    circle.DrawOnImage(image, 200, 200);
-    triangle.DrawOnImage(image, 300, 300);
-    diamond.DrawOnImage(image, 100, 300);
+    taswira::TextBox text(50, 200);
+
+    text.AddPhrase(Word);
+    text.DrawOnImage(image, 250, 200);
 
     image.WriteToDisk("myimage.bmp");
 

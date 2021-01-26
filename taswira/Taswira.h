@@ -4,3 +4,4 @@
 #include "AlphaUppercase.h"
 #include "Geometry.h"
 #include "Connector.h"
+#include "TextBox.h"
