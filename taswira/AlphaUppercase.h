@@ -262,14 +262,14 @@ namespace taswira {
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // horizontal bars
-                for (int col = startCol + 4; col < startCol + 11; ++col) {
+                for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
                     image.PixelAt(startRow + 15, col) = this->ShapeColor();
                     image.PixelAt(startRow, col) = this->ShapeColor();
                 }
 
                 // vertical bar
                 for (int row = startRow; row < startRow + this->ShapeHeight(); ++row) {
-                    image.PixelAt(row, startCol + 7) = this->ShapeColor();
+                    image.PixelAt(row, startCol + 8) = this->ShapeColor();
                 }
             }
         };
@@ -290,13 +290,12 @@ namespace taswira {
                     image.PixelAt(row, startCol + 15) = this->ShapeColor();
                 }
 
-                // add the "curve" dots
-                image.PixelAt(startRow + 4, startCol + 14) = this->ShapeColor();
-                image.PixelAt(startRow + 3, startCol + 13) = this->ShapeColor();
-                image.PixelAt(startRow + 2, startCol + 12) = this->ShapeColor();
-                image.PixelAt(startRow + 1, startCol + 11) = this->ShapeColor();
-                image.PixelAt(startRow + 2, startCol + 5) = this->ShapeColor();
-                image.PixelAt(startRow + 1, startCol + 6) = this->ShapeColor();
+                // add the "curve" lines
+                taswira::Geometry::DrawLineOnImage(image, startRow + 4, startCol + 15,
+                    startRow + 1, startCol + 11, this->ShapeColor());
+
+                taswira::Geometry::DrawLineOnImage(image, startRow + 1, startCol + 6,
+                    startRow + 4, startCol + 2, this->ShapeColor());
 
                 // horizontal bars
                 for (int col = startCol + 7; col < startCol + 11; ++col) {
@@ -322,18 +321,12 @@ namespace taswira {
                 }
 
                 // top diagonal line
-                int col = startCol + 1;
-                for (int row = startRow + 8; row < startRow + this->ShapeHeight(); ++row) {
-                    image.PixelAt(row, col) = this->ShapeColor();
-                    ++col;
-                }
+                taswira::Geometry::DrawLineOnImage(image, startRow + 8, startCol + 1,
+                    startRow + this->ShapeHeight() - 1, startCol + this->ShapeWidth() - 1, this->ShapeColor());
 
                 // bottom diagonal line
-                col = startCol + 1;
-                for (int row = startRow + 7; row >= startRow; --row) {
-                    image.PixelAt(row, col) = this->ShapeColor();
-                    ++col;
-                }
+                taswira::Geometry::DrawLineOnImage(image, startRow + 7, startCol + 1,
+                    startRow, startCol + this->ShapeWidth() - 1, this->ShapeColor());
             }
         };
 
@@ -623,17 +616,11 @@ namespace taswira {
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 // diagonal lines
-                int col1 = startCol + 8;
-                int col2 = startCol + 8;
-                for (int row = startRow; row < startRow + this->ShapeHeight(); row += 2) {
-                    image.PixelAt(row, col1) = this->ShapeColor();
-                    image.PixelAt(row + 1, col1) = this->ShapeColor();
-                    --col1;
+                taswira::Geometry::DrawLineOnImage(image, startRow, startCol + 8,
+                    startRow + this->ShapeHeight() - 1, startCol, this->ShapeColor());
 
-                    image.PixelAt(row, col2) = this->ShapeColor();
-                    image.PixelAt(row + 1, col2) = this->ShapeColor();
-                    ++col2;
-                }
+                taswira::Geometry::DrawLineOnImage(image, startRow, startCol + 8,
+                    startRow + this->ShapeHeight() - 1, startCol + this->ShapeWidth() - 1, this->ShapeColor());
             }
         };
 
@@ -648,37 +635,19 @@ namespace taswira {
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                // two mid points
-                image.PixelAt(startRow, startCol + 5) = this->ShapeColor();
-                image.PixelAt(startCol, startCol + 10) = this->ShapeColor();
-
                 // outer diagonal lines
-                int col1 = startCol + 4;
-                int col2 = startCol + 11;
-                for (int row = startRow; row < startRow + this->ShapeHeight(); row += 3) {
-                    image.PixelAt(row, col1) = this->ShapeColor();
-                    image.PixelAt(row + 1, col1) = this->ShapeColor();
-                    image.PixelAt(row + 2, col1) = this->ShapeColor();
-                    --col1;
+                taswira::Geometry::DrawLineOnImage(image, startRow, startCol + 4,
+                    startRow + this->ShapeHeight() - 1, startCol, this->ShapeColor());
 
-                    image.PixelAt(row, col2) = this->ShapeColor();
-                    image.PixelAt(row + 1, col2) = this->ShapeColor();
-                    image.PixelAt(row + 2, col2) = this->ShapeColor();
-                    ++col2;
-                }
+                taswira::Geometry::DrawLineOnImage(image, startRow, startCol + 11,
+                    startRow + this->ShapeHeight() - 1, startCol + this->ShapeWidth() - 1, this->ShapeColor());
 
                 // inner diagonal lines
-                col1 = startCol + 6;
-                col2 = startCol + 9;
-                for (int row = startRow; row < startRow + 5; row += 2) {
-                    image.PixelAt(row, col1) = this->ShapeColor();
-                    image.PixelAt(row + 1, col1) = this->ShapeColor();
-                    ++col1;
+                taswira::Geometry::DrawLineOnImage(image, startRow, startCol + 4,
+                    startRow + this->ShapeHeight() - 1, startCol + 7, this->ShapeColor());
 
-                    image.PixelAt(row, col2) = this->ShapeColor();
-                    image.PixelAt(row + 1, col2) = this->ShapeColor();
-                    --col2;
-                }
+                taswira::Geometry::DrawLineOnImage(image, startRow, startCol + 11,
+                    startRow + this->ShapeHeight() - 1, startCol + 8, this->ShapeColor());
             }
         };
 

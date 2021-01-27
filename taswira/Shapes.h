@@ -90,24 +90,16 @@ namespace taswira {
             int RowLen = startRow + this->ShapeHeight();
             int ColLen = startCol + this->ShapeWidth();
 
-            // draw top line
+            // draw horizontal lines
             for (int col = startCol; col < ColLen; ++col) {
                 image.PixelAt(startRow, col) = this->ShapeColor();
-            }
-
-            // draw bottom line
-            for (int col = startCol; col < ColLen; ++col) {
                 image.PixelAt(RowLen - 1, col) = this->ShapeColor();
             }
 
-            // draw left line
-            for (int row = startRow; row < RowLen; ++row) {
-                image.PixelAt(row, startCol) = this->ShapeColor();
-            }
-
-            // draw right line
+            // draw vertical lines
             for (int row = startRow; row < RowLen; ++row) {
                 image.PixelAt(row, ColLen - 1) = this->ShapeColor();
+                image.PixelAt(row, startCol) = this->ShapeColor();
             }
         }
     };

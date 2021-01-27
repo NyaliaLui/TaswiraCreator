@@ -148,9 +148,11 @@
     <ClInclude Include="BitmapInfoHeader.h" />
     <ClInclude Include="Connector.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="AlphaFactory.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="Taswira.h" />
+    <ClInclude Include="TextBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
