@@ -6,3 +6,4 @@
 #include "Connector.h"
 #include "TextBox.h"
 #include "AlphaFactory.h"
+#include "UMLObjects.h"

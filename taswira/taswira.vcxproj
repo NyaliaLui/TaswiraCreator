@@ -153,6 +153,7 @@
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="Taswira.h" />
     <ClInclude Include="TextBox.h" />
+    <ClInclude Include="UMLObjects.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
