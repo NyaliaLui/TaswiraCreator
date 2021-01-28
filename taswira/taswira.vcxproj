@@ -140,7 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AlphaDims.h" />
+    <ClInclude Include="ObjectDims.h" />
     <ClInclude Include="AlphaUppercase.h" />
     <ClInclude Include="BaseShape.h" />
     <ClInclude Include="BitmapFileHeader.h" />

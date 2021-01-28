@@ -10,9 +10,9 @@ namespace taswira {
         uint8_t Red;
 
         Pixel(void)
-            :Blue(0),
-            Green(0),
-            Red(0)
+            :Blue(255),
+            Green(255),
+            Red(255)
         {  }
 
         Pixel(int blue, int green, int red)

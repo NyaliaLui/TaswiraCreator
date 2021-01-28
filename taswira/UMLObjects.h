@@ -6,53 +6,69 @@
 #include "BitmapImage.h"
 #include "Shapes.h"
 #include "Connector.h"
+#include "TextBox.h"
 
 #include <array>
 #include <limits>
+#include <memory>
 
 namespace taswira {
     namespace UML {
-        struct UMLObject {
-            std::array<taswira::Connector, 4> Connectors;
-
+        class UMLObject : public taswira::IBaseShape {
+        public:
             UMLObject(void)
             {  }
 
-            ~UMLObject(void)
+            virtual ~UMLObject(void)
             {  }
 
-            taswira::Connector& ConnectorLeft(void) {
+            virtual taswira::Connector& ConnectorLeft(void) {
                 return this->Connectors[0];
             }
 
-            taswira::Connector& ConnectorTop(void) {
+            virtual taswira::Connector& ConnectorTop(void) {
                 return this->Connectors[1];
             }
 
-            taswira::Connector& ConnectorRight(void) {
+            virtual taswira::Connector& ConnectorRight(void) {
                 return this->Connectors[2];
             }
 
-            taswira::Connector& ConnectorBottom(void) {
+            virtual taswira::Connector& ConnectorBottom(void) {
                 return this->Connectors[3];
             }
+
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+                // does nothing
+            }
+
+            virtual std::array<taswira::Connector, 4>& UMLConnectors(void) {
+                return this->Connectors;
+            }
+
+        private:
+            std::array<taswira::Connector, 4> Connectors;
         };
 
-		class Inheritance : public UMLObject, taswira::IBaseShape {
-		public:
+		class Inheritance : public UMLObject {
+        public:
 			Inheritance(void)
+                :Shape(taswira::UMLDims::AssociationLineLength, taswira::Colors::Black)
 			{  }
 
             Inheritance(const taswira::Pixel& color)
-                :taswira::IBaseShape(color),
-                Triangle(20, color)
+                :Shape(taswira::UMLDims::AssociationLineLength, color)
             {  }
 
             ~Inheritance(void)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                int LineLen = this->Triangle.ShapeLineLength();
+                this->Shape.DrawOnImage(image, startRow, startCol);
+
+                int LineLen = this->Shape.ShapeLineLength();
+
+                // Set the connectors
                 taswira::Connector Top(startRow + LineLen, startCol + (LineLen / 2));
                 taswira::Connector Bottom(startRow, startCol + (LineLen / 2));
 
@@ -60,30 +76,30 @@ namespace taswira {
                 this->ConnectorTop() = Top;
                 this->ConnectorRight() = Top;
                 this->ConnectorBottom() = Bottom;
-
-                this->Triangle.DrawOnImage(image, startRow, startCol);
             }
-
-		private:
-            taswira::Triangle Triangle;
-
+        private:
+            taswira::Triangle Shape;
 		};
 
-        class Aggregation : public UMLObject, taswira::IBaseShape {
+        class Aggregation : public UMLObject {
         public:
             Aggregation(void)
+                :Shape(taswira::UMLDims::AssociationLineLength, taswira::Colors::Black)
             {  }
 
             Aggregation(const taswira::Pixel& color)
-                :taswira::IBaseShape(color),
-                Diamond(25, color)
+                :Shape(taswira::UMLDims::AssociationLineLength, color)
             {  }
 
             ~Aggregation(void)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                int LineLen = this->Diamond.ShapeHeight();
+                this->Shape.DrawOnImage(image, startRow, startCol);
+
+                int LineLen = this->Shape.ShapeHeight();
+
+                // Set the connectors
                 taswira::Connector Left(startRow + (LineLen / 2), startCol);
                 taswira::Connector Top(startRow + LineLen - 1, startCol + (LineLen / 2));
                 taswira::Connector Right(startRow + (LineLen / 2), startCol + LineLen - 1);
@@ -93,13 +109,118 @@ namespace taswira {
                 this->ConnectorTop() = Top;
                 this->ConnectorRight() = Right;
                 this->ConnectorBottom() = Bottom;
+            }
+        private:
+            taswira::Diamond Shape;
+        };
 
-                this->Diamond.DrawOnImage(image, startRow, startCol);
+        // Simple refers to no association between objects
+        struct Simple : public UMLObject {
+            Simple(void)
+            {  }
+
+            ~Simple(void)
+            {  }
+        };
+
+        class Class : public UMLObject {
+        public:
+            Class(void)
+            {  }
+
+            Class(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::Black)
+                :Text(rowDims, colDims, color),
+                Association(nullptr)
+            {  }
+
+            ~Class(void)
+            {  }
+
+            void AddAssociation(std::shared_ptr<UMLObject> association) {
+                this->Association = association;
+            }
+
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+                this->Text.DrawOnImage(image, startRow, startCol);
+
+                int NumRows = this->Text.ShapeHeight();
+                int NumCols = this->Text.ShapeWidth();
+
+
+                if (this->Association != nullptr) {
+                    int MiddleCol = startCol + (NumCols / 2);
+                    int AssociationStartRow = startRow - taswira::UMLDims::AssociationLineLength;
+                    int AssociationStartCol = MiddleCol - (taswira::UMLDims::AssociationLineLength / 2);
+
+                    this->Association->DrawOnImage(image, AssociationStartRow, AssociationStartCol);
+                } else {
+                    //There is no association, so we use the class connectors itself
+
+                    // Set the connectors
+                    taswira::Connector Left(startRow + (NumRows / 2), startCol);
+                    taswira::Connector Top(startRow + NumRows - 1, startCol + (NumCols / 2));
+                    taswira::Connector Right(startRow + (NumRows / 2), startCol + NumCols - 1);
+                    taswira::Connector Bottom(startRow, startCol + (NumCols / 2));
+
+                    this->ConnectorLeft() = Left;
+                    this->ConnectorTop() = Top;
+                    this->ConnectorRight() = Right;
+                    this->ConnectorBottom() = Bottom;
+                }
+            }
+
+            virtual taswira::Connector& ConnectorLeft(void) {
+                if (this->Association == nullptr) {
+                    return UMLObject::ConnectorLeft();
+                }
+                else {
+                    return this->Association->ConnectorLeft();
+                }
+            }
+
+            virtual taswira::Connector& ConnectorTop(void) {
+                if (this->Association == nullptr) {
+                    return UMLObject::ConnectorTop();
+                }
+                else {
+                    return this->Association->ConnectorTop();
+                }
+            }
+
+            virtual taswira::Connector& ConnectorRight(void) {
+                if (this->Association == nullptr) {
+                    return UMLObject::ConnectorRight();
+                }
+                else {
+                    return this->Association->ConnectorRight();
+                }
+            }
+
+            virtual taswira::Connector& ConnectorBottom(void) {
+                if (this->Association == nullptr) {
+                    return UMLObject::ConnectorBottom();
+                }
+                else {
+                    return this->Association->ConnectorBottom();
+                }
+            }
+
+            virtual std::array<taswira::Connector, 4>& UMLConnectors(void) {
+                if (this->Association == nullptr) {
+                    return UMLObject::UMLConnectors();
+                }
+                else {
+                    return this->Association->UMLConnectors();
+                }
+            }
+
+            taswira::TextBox& ObjectText(void) {
+                return this->Text;
             }
 
         private:
-            taswira::Diamond Diamond;
-
+            taswira::TextBox Text;
+            std::shared_ptr<UMLObject> Association;
         };
 	} // ! namespace UML
 
@@ -108,8 +229,8 @@ namespace taswira {
             // find the connectors that are closest to each other
             int ClosestDistance = std::numeric_limits<int>::max(), Distance = 0;
             taswira::Connector ClosestConn1, ClosestConn2;
-            for (taswira::Connector& Conn1 : obj1.Connectors) {
-                for (taswira::Connector& Conn2 : obj2.Connectors) {
+            for (taswira::Connector& Conn1 : obj1.UMLConnectors()) {
+                for (taswira::Connector& Conn2 : obj2.UMLConnectors()) {
                     Distance = taswira::Geometry::CalculateDistance(Conn1, Conn2);
 
                     if (Distance < ClosestDistance) {

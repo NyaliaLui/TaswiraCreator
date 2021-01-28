@@ -18,7 +18,7 @@ int main(void) {
     Object1.ObjectText().AddPhrase(taswira::CreatePhrase("TASWIRA", LetterFactory));
     Object2.ObjectText().AddPhrase(taswira::CreatePhrase("CREATOR", LetterFactory));
 
-    Object1.AddAssociation(std::make_shared<taswira::UML::Aggregation>());
+    Object1.AddAssociation(std::make_shared<taswira::UML::Inheritance>());
 
     Object1.DrawOnImage(image, 250, 200);
     Object2.DrawOnImage(image, 100, 100);

@@ -1,5 +1,5 @@
-#ifndef ALPHADIMS_H
-#define ALPHADIMS_H
+#ifndef OBJECTDIMS_H
+#define OBJECTDIMS_H
 
 // All alphabetical characters are held in a 16x16 grid (i.e., square) of pixels.
 namespace taswira {
@@ -7,6 +7,10 @@ namespace taswira {
         static const int RowDim = 16;
         static const int ColDim = 16;
     }
+
+    namespace UMLDims {
+        static const int AssociationLineLength = 20;
+    }
 }
 
-#endif // !ALPHADIMS_H
+#endif // !OBJECTDIMS_H

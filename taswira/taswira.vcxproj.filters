@@ -39,9 +39,6 @@
     <ClInclude Include="AlphaUppercase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AlphaDims.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -55,6 +52,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UMLObjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDims.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

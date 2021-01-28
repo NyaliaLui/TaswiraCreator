@@ -5,7 +5,7 @@
 #include "Geometry.h"
 #include "BitmapImage.h"
 #include "Shapes.h"
-#include "AlphaDims.h"
+#include "ObjectDims.h"
 
 #include <vector>
 #include <memory>

@@ -6,6 +6,7 @@
 #include "BitmapImage.h"
 
 namespace taswira {
+    // Shapes in Taswira are designed with the Command Pattern
     class IBaseShape {
     public:
         IBaseShape(void)
