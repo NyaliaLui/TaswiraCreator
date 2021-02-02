@@ -15,15 +15,11 @@ namespace taswira {
     public:
         TextBox(void)
             :taswira::Rectangle(),
-            RowPadding(taswira::AlphaDims::RowDim),
-            ColPadding(taswira::AlphaDims::ColDim),
             LetterPadding(0)
         {  }
 
         TextBox(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::White)
             :taswira::Rectangle(rowDims, colDims, color),
-            RowPadding(taswira::AlphaDims::RowDim),
-            ColPadding(taswira::AlphaDims::ColDim),
             LetterPadding(2)
         {  }
 
@@ -58,11 +54,6 @@ namespace taswira {
         }
 
     private:
-        // the padding from the border of the text box
-        // will always be equal to the font size (i.e., AlphaDims)
-        int RowPadding;
-        int ColPadding;
-
         int LetterPadding;
 
         std::vector<std::shared_ptr<taswira::IBaseShape>> Phrase;

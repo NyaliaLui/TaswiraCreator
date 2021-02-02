@@ -123,17 +123,17 @@ namespace taswira {
             {  }
         };
 
-        class Class : public UMLObject {
+        class PartialClass : public UMLObject {
         public:
-            Class(void)
+            PartialClass(void)
             {  }
 
-            Class(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::Black)
+            PartialClass(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::Black)
                 :Text(rowDims, colDims, color),
                 Association(nullptr)
             {  }
 
-            ~Class(void)
+            ~PartialClass(void)
             {  }
 
             void AddAssociation(std::shared_ptr<UMLObject> association) {
@@ -221,6 +221,52 @@ namespace taswira {
         private:
             taswira::TextBox Text;
             std::shared_ptr<UMLObject> Association;
+        };
+
+        class FullClass : public UMLObject {
+        public:
+            FullClass(void)
+            {  }
+
+            // Minimum rowDims (i.e. Shape Height) for a FullClass is 100px so the 16px size letters
+            // can fit in the upper quarter of the object. Otherwise you get undefined behaviour.
+            FullClass(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::Black)
+                :ObjectBounds(rowDims, colDims, color),
+                ClassName(rowDims / 4, colDims, color)
+            {  }
+
+            ~FullClass(void)
+            {  }
+
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+                int NumRows = this->ObjectBounds.ShapeHeight();
+                int NumCols = this->ObjectBounds.ShapeWidth();
+                int QuarterHeight = NumRows / 4;
+                int LastQuarter = startRow + (3 * QuarterHeight);
+                this->ClassName.DrawOnImage(image, LastQuarter, startCol);
+                this->ObjectBounds.DrawOnImage(image, startRow, startCol);
+
+                //There is no association, so we use the class connectors itself
+
+                // Set the connectors
+                taswira::Connector Left(startRow + (NumRows / 2), startCol);
+                taswira::Connector Top(startRow + NumRows - 1, startCol + (NumCols / 2));
+                taswira::Connector Right(startRow + (NumRows / 2), startCol + NumCols - 1);
+                taswira::Connector Bottom(startRow, startCol + (NumCols / 2));
+
+                this->ConnectorLeft() = Left;
+                this->ConnectorTop() = Top;
+                this->ConnectorRight() = Right;
+                this->ConnectorBottom() = Bottom;
+            }
+
+            taswira::TextBox& ObjectName(void) {
+                return this->ClassName;
+            }
+
+        private:
+            taswira::Rectangle ObjectBounds;
+            taswira::TextBox ClassName;
         };
 	} // ! namespace UML
 
