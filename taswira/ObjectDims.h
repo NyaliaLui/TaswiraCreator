@@ -8,6 +8,10 @@ namespace taswira {
         static const int ColDim = 16;
     }
 
+    namespace TextDims {
+        static const int LetterPadding = 2;
+    }
+
     namespace UMLDims {
         static const int AssociationLineLength = 20;
     }

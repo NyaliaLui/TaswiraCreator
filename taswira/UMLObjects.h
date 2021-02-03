@@ -11,12 +11,23 @@
 #include <array>
 #include <limits>
 #include <memory>
+#include <vector>
+#include <stdexcept>
 
 namespace taswira {
     namespace UML {
         class UMLObject : public taswira::IBaseShape {
         public:
             UMLObject(void)
+            {  }
+
+            UMLObject(const taswira::Pixel& color)
+                :taswira::IBaseShape(color)
+            {  }
+
+            UMLObject(const UMLObject& obj)
+                :taswira::IBaseShape(obj),
+                Connectors(obj.Connectors)
             {  }
 
             virtual ~UMLObject(void)
@@ -223,6 +234,81 @@ namespace taswira {
             std::shared_ptr<UMLObject> Association;
         };
 
+        class Variable : public UMLObject {
+        public:
+            Variable(void)
+                :Visibility(nullptr),
+                Padding(4),
+                VisibilityHeight(0),
+                VisibilityWidth(0)
+            {  }
+
+            Variable(taswira::TextBoxNoBorder name)
+                :UMLObject(name.ShapeColor()),
+                Visibility(nullptr),
+                Name(name),
+                Padding(4),
+                VisibilityHeight(0),
+                VisibilityWidth(0)
+            {  }
+
+            Variable(taswira::TextBoxNoBorder& name)
+                :UMLObject(name.ShapeColor()),
+                Visibility(nullptr),
+                Name(name),
+                Padding(4),
+                VisibilityHeight(0),
+                VisibilityWidth(0)
+            {  }
+
+            Variable(const Variable& variable)
+                :UMLObject(variable),
+                Visibility(variable.Visibility),
+                Name(variable.Name),
+                Padding(variable.Padding),
+                VisibilityHeight(variable.VisibilityHeight),
+                VisibilityWidth(variable.VisibilityWidth)
+            {  }
+
+            ~Variable(void)
+            {  }
+
+            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+                if (this->Visibility == nullptr) {
+                    throw std::logic_error("Variable Visibility is Null");
+                }
+
+                int ShapeMiddleRow = this->Name.ShapeHeight() / 2;
+                int VisibilityMiddleRow = this->VisibilityHeight / 2;
+                int Line = startRow + (ShapeMiddleRow - VisibilityMiddleRow);
+
+                this->Visibility->DrawOnImage(image, Line, startCol);
+
+                this->Name.DrawOnImage(image, startRow, startCol + this->VisibilityWidth + this->Padding);
+            }
+
+            template<typename VISTYPE>
+            void AddVisibility(void) {
+                this->Visibility = std::make_shared<VISTYPE>(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, this->Name.ShapeColor());
+                this->VisibilityHeight = taswira::AlphaDims::RowDim;
+                this->VisibilityWidth = taswira::AlphaDims::ColDim;
+            }
+
+            int ShapeHeight(void) {
+                return this->Name.ShapeHeight();
+            }
+
+            int ShapeWith(void) {
+                return this->VisibilityWidth + this->Padding + this->Name.ShapeWidth();
+            }
+        private:
+            std::shared_ptr<taswira::IBaseShape> Visibility;
+            taswira::TextBoxNoBorder Name;
+            int Padding;
+            int VisibilityHeight;
+            int VisibilityWidth;
+        };
+
         class FullClass : public UMLObject {
         public:
             FullClass(void)
@@ -235,6 +321,11 @@ namespace taswira {
                 ClassName(rowDims / 4, colDims, color)
             {  }
 
+            FullClass(int rowDims, int colDims, const std::vector<std::shared_ptr<taswira::IBaseShape>>& phrase, const taswira::Pixel& color = taswira::Colors::Black)
+                :ObjectBounds(rowDims, colDims, color),
+                ClassName(rowDims / 4, colDims, phrase, color)
+            {  }
+
             ~FullClass(void)
             {  }
 
@@ -243,10 +334,10 @@ namespace taswira {
                 int NumCols = this->ObjectBounds.ShapeWidth();
                 int QuarterHeight = NumRows / 4;
                 int LastQuarter = startRow + (3 * QuarterHeight);
+
+                // Draw border and and class name
                 this->ClassName.DrawOnImage(image, LastQuarter, startCol);
                 this->ObjectBounds.DrawOnImage(image, startRow, startCol);
-
-                //There is no association, so we use the class connectors itself
 
                 // Set the connectors
                 taswira::Connector Left(startRow + (NumRows / 2), startCol);
@@ -258,6 +349,23 @@ namespace taswira {
                 this->ConnectorTop() = Top;
                 this->ConnectorRight() = Right;
                 this->ConnectorBottom() = Bottom;
+
+                // Draw variables
+                int Line = LastQuarter - this->Variables[0].ShapeHeight();
+                for (taswira::UML::Variable& var : this->Variables) {
+                    var.DrawOnImage(image, Line, startCol);
+                    Line -= this->Variables[0].ShapeHeight();
+                }
+            }
+
+            template<typename VISTYPE>
+            void AddVariable(const std::vector<std::shared_ptr<taswira::IBaseShape>>& phrase) {
+                int PhraseColSize = (phrase.size() * taswira::AlphaDims::ColDim) + ((phrase.size() - 1) * taswira::TextDims::LetterPadding);
+
+                taswira::UML::Variable Var(taswira::TextBoxNoBorder(20, PhraseColSize, phrase));
+                Var.AddVisibility<VISTYPE>();
+
+                this->Variables.push_back(Var);
             }
 
             taswira::TextBox& ObjectName(void) {
@@ -267,6 +375,7 @@ namespace taswira {
         private:
             taswira::Rectangle ObjectBounds;
             taswira::TextBox ClassName;
+            std::vector<taswira::UML::Variable> Variables;
         };
 	} // ! namespace UML
 

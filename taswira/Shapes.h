@@ -56,6 +56,12 @@ namespace taswira {
             ColDims(colDims)
         {  }
 
+        Parallelogram(const Parallelogram& parallelogram)
+            :IBaseShape(parallelogram),
+            RowDims(parallelogram.RowDims),
+            ColDims(parallelogram.ColDims)
+        {  }
+
         virtual ~Parallelogram(void)
         {  }
 
@@ -84,6 +90,10 @@ namespace taswira {
 
         Rectangle(int rowDims, int colDims, const taswira::Pixel& color)
             :Parallelogram(rowDims, colDims, color)
+        {  }
+
+        Rectangle(const Rectangle& rectangle)
+            :Parallelogram(rectangle)
         {  }
 
         virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
@@ -207,6 +217,150 @@ namespace taswira {
 
     private:
         int Radius;
+    };
+
+    class Plus : public taswira::IBaseShape {
+    public:
+        Plus(void)
+            :RowDims(0),
+            ColDims(0)
+        {  }
+
+        Plus(int rowDims, int colDims, const taswira::Pixel& color)
+            :IBaseShape(color),
+            RowDims(rowDims),
+            ColDims(colDims)
+        {  }
+
+        Plus(const Plus& plus)
+            :IBaseShape(plus),
+            RowDims(plus.RowDims),
+            ColDims(plus.ColDims)
+        {  }
+
+        virtual ~Plus(void)
+        {  }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int MiddleRow = startRow + this->ShapeHeight() / 2;
+            int MiddleCol = startCol + this->ShapeWidth() / 2;
+
+            // horizontal bar
+            for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
+                image.PixelAt(MiddleRow, col) = this->ShapeColor();
+            }
+
+            // vertical bar
+            for (int row = startRow; row < startRow + this->ShapeHeight(); ++row) {
+                image.PixelAt(row, MiddleCol) = this->ShapeColor();
+            }
+        }
+
+        int& ShapeHeight(void) {
+            return this->RowDims;
+        }
+
+        int& ShapeWidth(void) {
+            return this->ColDims;
+        }
+
+    private:
+        int RowDims;
+        int ColDims;
+    };
+
+    class Minus : public taswira::IBaseShape {
+    public:
+        Minus(void)
+            :RowDims(0),
+            ColDims(0)
+        {  }
+
+        Minus(int rowDims, int colDims, const taswira::Pixel& color)
+            :IBaseShape(color),
+            RowDims(rowDims),
+            ColDims(colDims)
+        {  }
+
+        Minus(const Minus& minus)
+            :IBaseShape(minus),
+            RowDims(minus.RowDims),
+            ColDims(minus.ColDims)
+        {  }
+
+        virtual ~Minus(void)
+        {  }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int MiddleRow = startRow + this->ShapeHeight() / 2;
+
+            // horizontal bar
+            for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
+                image.PixelAt(MiddleRow, col) = this->ShapeColor();
+            }
+        }
+
+        int& ShapeHeight(void) {
+            return this->RowDims;
+        }
+
+        int& ShapeWidth(void) {
+            return this->ColDims;
+        }
+
+    private:
+        int RowDims;
+        int ColDims;
+    };
+
+    class HashTag : public taswira::IBaseShape {
+    public:
+        HashTag(void)
+            :RowDims(0),
+            ColDims(0)
+        {  }
+
+        HashTag(int rowDims, int colDims, const taswira::Pixel& color)
+            :IBaseShape(color),
+            RowDims(rowDims),
+            ColDims(colDims)
+        {  }
+
+        HashTag(const HashTag& sign)
+            :IBaseShape(sign),
+            RowDims(sign.RowDims),
+            ColDims(sign.ColDims)
+        {  }
+
+        virtual ~HashTag(void)
+        {  }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int ThirdOfARow = this->ShapeHeight() / 3;
+            int MiddleCol = startCol + this->ShapeWidth() / 2;
+
+            // horizontal bars
+            for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
+                image.PixelAt(startRow + ThirdOfARow, col) = this->ShapeColor();
+                image.PixelAt(startRow + (2 * ThirdOfARow), col) = this->ShapeColor();
+            }
+
+            // diagonal bars
+            taswira::Geometry::DrawLineOnImage(image, startRow, startCol, startRow + this->ShapeHeight() - 1, MiddleCol, this->ShapeColor());
+            taswira::Geometry::DrawLineOnImage(image, startRow, MiddleCol, startRow + this->ShapeHeight() - 1, startCol + this->ShapeWidth() - 1, this->ShapeColor());
+        }
+
+        int& ShapeHeight(void) {
+            return this->RowDims;
+        }
+
+        int& ShapeWidth(void) {
+            return this->ColDims;
+        }
+
+    private:
+        int RowDims;
+        int ColDims;
     };
 }
 

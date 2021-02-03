@@ -16,6 +16,10 @@ namespace taswira {
             :Color(color)
         {  }
 
+        IBaseShape(const IBaseShape& base)
+            :Color(base.Color)
+        {  }
+
         virtual ~IBaseShape(void)
         {  }
 

@@ -14,13 +14,20 @@ namespace taswira {
 	class TextBox : public taswira::Rectangle {
     public:
         TextBox(void)
-            :taswira::Rectangle(),
-            LetterPadding(0)
         {  }
 
-        TextBox(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::White)
+        TextBox(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::Black)
+            :taswira::Rectangle(rowDims, colDims, color)
+        {  }
+
+        TextBox(int rowDims, int colDims, const std::vector<std::shared_ptr<taswira::IBaseShape>>& phrase, const taswira::Pixel& color = taswira::Colors::Black)
             :taswira::Rectangle(rowDims, colDims, color),
-            LetterPadding(2)
+            Phrase(phrase)
+        {  }
+
+        TextBox(const TextBox& text)
+            :taswira::Rectangle(text),
+            Phrase(text.Phrase)
         {  }
 
         ~TextBox(void)
@@ -35,7 +42,7 @@ namespace taswira {
             int TextBoxMidRow = this->ShapeHeight() / 2;
             int LetterMidRow = taswira::AlphaDims::RowDim / 2;
 
-            int PhrasePixSize = (this->Phrase.size() * taswira::AlphaDims::ColDim) + (this->Phrase.size() * this->LetterPadding);
+            int PhrasePixSize = (this->Phrase.size() * taswira::AlphaDims::ColDim) + (this->Phrase.size() * taswira::TextDims::LetterPadding);
             int FreeColSpace = this->ShapeWidth() - PhrasePixSize;
 
             // identify the starting line and column
@@ -45,7 +52,7 @@ namespace taswira {
             // draw the phrase
             for (const std::shared_ptr<taswira::IBaseShape>& letter : this->Phrase) {
                 letter->DrawOnImage(image, Line, col);
-                col += (taswira::AlphaDims::ColDim + this->LetterPadding);
+                col += (taswira::AlphaDims::ColDim + taswira::TextDims::LetterPadding);
             }
         }
 
@@ -54,10 +61,58 @@ namespace taswira {
         }
 
     private:
-        int LetterPadding;
-
         std::vector<std::shared_ptr<taswira::IBaseShape>> Phrase;
 	};
+
+    class TextBoxNoBorder : public taswira::Parallelogram {
+    public:
+        TextBoxNoBorder(void)
+        {  }
+
+        TextBoxNoBorder(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::Black)
+            :taswira::Parallelogram(rowDims, colDims, color)
+        {  }
+
+        TextBoxNoBorder(int rowDims, int colDims, const std::vector<std::shared_ptr<taswira::IBaseShape>>& phrase, const taswira::Pixel& color = taswira::Colors::Black)
+            :taswira::Parallelogram(rowDims, colDims, color),
+            Phrase(phrase)
+        {  }
+
+        TextBoxNoBorder(const TextBoxNoBorder& text)
+            :taswira::Parallelogram(text),
+            Phrase(text.Phrase)
+        {  }
+
+        ~TextBoxNoBorder(void)
+        {  }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            // calculate the middle row and free column space while according for padding
+            // this will center the phrase in the text box
+            int TextBoxMidRow = this->ShapeHeight() / 2;
+            int LetterMidRow = taswira::AlphaDims::RowDim / 2;
+
+            int PhrasePixSize = (this->Phrase.size() * taswira::AlphaDims::ColDim) + (this->Phrase.size() * taswira::TextDims::LetterPadding);
+            int FreeColSpace = this->ShapeWidth() - PhrasePixSize;
+
+            // identify the starting line and column
+            int Line = startRow + (TextBoxMidRow - LetterMidRow);
+            int col = startCol + (FreeColSpace / 2);
+
+            // draw the phrase
+            for (const std::shared_ptr<taswira::IBaseShape>& letter : this->Phrase) {
+                letter->DrawOnImage(image, Line, col);
+                col += (taswira::AlphaDims::ColDim + taswira::TextDims::LetterPadding);
+            }
+        }
+
+        void AddPhrase(const std::vector<std::shared_ptr<taswira::IBaseShape>>& phrase) {
+            this->Phrase = phrase;
+        }
+
+    private:
+        std::vector<std::shared_ptr<taswira::IBaseShape>> Phrase;
+    };
 }
 
 #endif // !TEXTBOX_H
