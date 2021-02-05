@@ -7,3 +7,5 @@
 #include "TextBox.h"
 #include "AlphaFactory.h"
 #include "UMLObjects.h"
+#include "UMLFactory.h"
+#include "BitmapFactory.h"

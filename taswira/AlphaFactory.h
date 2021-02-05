@@ -15,32 +15,32 @@ namespace taswira {
 	public:
 		AlphaFactory(void)
 		{
-			Uppercase[0] = std::make_shared<taswira::Uppercase::A>(taswira::Colors::White);
-			Uppercase[1] = std::make_shared<taswira::Uppercase::B>(taswira::Colors::White);
-			Uppercase[2] = std::make_shared<taswira::Uppercase::C>(taswira::Colors::White);
-			Uppercase[3] = std::make_shared<taswira::Uppercase::D>(taswira::Colors::White);
-			Uppercase[4] = std::make_shared<taswira::Uppercase::E>(taswira::Colors::White);
-			Uppercase[5] = std::make_shared<taswira::Uppercase::F>(taswira::Colors::White);
-			Uppercase[6] = std::make_shared<taswira::Uppercase::G>(taswira::Colors::White);
-			Uppercase[7] = std::make_shared<taswira::Uppercase::H>(taswira::Colors::White);
-			Uppercase[8] = std::make_shared<taswira::Uppercase::I>(taswira::Colors::White);
-			Uppercase[9] = std::make_shared<taswira::Uppercase::J>(taswira::Colors::White);
-			Uppercase[10] = std::make_shared<taswira::Uppercase::K>(taswira::Colors::White);
-			Uppercase[11] = std::make_shared<taswira::Uppercase::L>(taswira::Colors::White);
-			Uppercase[12] = std::make_shared<taswira::Uppercase::M>(taswira::Colors::White);
-			Uppercase[13] = std::make_shared<taswira::Uppercase::N>(taswira::Colors::White);
-			Uppercase[14] = std::make_shared<taswira::Uppercase::O>(taswira::Colors::White);
-			Uppercase[15] = std::make_shared<taswira::Uppercase::P>(taswira::Colors::White);
-			Uppercase[16] = std::make_shared<taswira::Uppercase::Q>(taswira::Colors::White);
-			Uppercase[17] = std::make_shared<taswira::Uppercase::R>(taswira::Colors::White);
-			Uppercase[18] = std::make_shared<taswira::Uppercase::S>(taswira::Colors::White);
-			Uppercase[19] = std::make_shared<taswira::Uppercase::T>(taswira::Colors::White);
-			Uppercase[20] = std::make_shared<taswira::Uppercase::U>(taswira::Colors::White);
-			Uppercase[21] = std::make_shared<taswira::Uppercase::V>(taswira::Colors::White);
-			Uppercase[22] = std::make_shared<taswira::Uppercase::W>(taswira::Colors::White);
-			Uppercase[23] = std::make_shared<taswira::Uppercase::X>(taswira::Colors::White);
-			Uppercase[24] = std::make_shared<taswira::Uppercase::Y>(taswira::Colors::White);
-			Uppercase[25] = std::make_shared<taswira::Uppercase::Z>(taswira::Colors::White);
+			Uppercase[0] = std::make_shared<taswira::Uppercase::A>(taswira::Colors::Black);
+			Uppercase[1] = std::make_shared<taswira::Uppercase::B>(taswira::Colors::Black);
+			Uppercase[2] = std::make_shared<taswira::Uppercase::C>(taswira::Colors::Black);
+			Uppercase[3] = std::make_shared<taswira::Uppercase::D>(taswira::Colors::Black);
+			Uppercase[4] = std::make_shared<taswira::Uppercase::E>(taswira::Colors::Black);
+			Uppercase[5] = std::make_shared<taswira::Uppercase::F>(taswira::Colors::Black);
+			Uppercase[6] = std::make_shared<taswira::Uppercase::G>(taswira::Colors::Black);
+			Uppercase[7] = std::make_shared<taswira::Uppercase::H>(taswira::Colors::Black);
+			Uppercase[8] = std::make_shared<taswira::Uppercase::I>(taswira::Colors::Black);
+			Uppercase[9] = std::make_shared<taswira::Uppercase::J>(taswira::Colors::Black);
+			Uppercase[10] = std::make_shared<taswira::Uppercase::K>(taswira::Colors::Black);
+			Uppercase[11] = std::make_shared<taswira::Uppercase::L>(taswira::Colors::Black);
+			Uppercase[12] = std::make_shared<taswira::Uppercase::M>(taswira::Colors::Black);
+			Uppercase[13] = std::make_shared<taswira::Uppercase::N>(taswira::Colors::Black);
+			Uppercase[14] = std::make_shared<taswira::Uppercase::O>(taswira::Colors::Black);
+			Uppercase[15] = std::make_shared<taswira::Uppercase::P>(taswira::Colors::Black);
+			Uppercase[16] = std::make_shared<taswira::Uppercase::Q>(taswira::Colors::Black);
+			Uppercase[17] = std::make_shared<taswira::Uppercase::R>(taswira::Colors::Black);
+			Uppercase[18] = std::make_shared<taswira::Uppercase::S>(taswira::Colors::Black);
+			Uppercase[19] = std::make_shared<taswira::Uppercase::T>(taswira::Colors::Black);
+			Uppercase[20] = std::make_shared<taswira::Uppercase::U>(taswira::Colors::Black);
+			Uppercase[21] = std::make_shared<taswira::Uppercase::V>(taswira::Colors::Black);
+			Uppercase[22] = std::make_shared<taswira::Uppercase::W>(taswira::Colors::Black);
+			Uppercase[23] = std::make_shared<taswira::Uppercase::X>(taswira::Colors::Black);
+			Uppercase[24] = std::make_shared<taswira::Uppercase::Y>(taswira::Colors::Black);
+			Uppercase[25] = std::make_shared<taswira::Uppercase::Z>(taswira::Colors::Black);
 		}
 
 		AlphaFactory(taswira::Pixel& color)
@@ -73,8 +73,18 @@ namespace taswira {
 			Uppercase[25] = std::make_shared<taswira::Uppercase::Z>(color);
 		}
 
+		AlphaFactory(const AlphaFactory& factory)
+			:Uppercase(factory.Uppercase)
+		{  }
+
 		~AlphaFactory(void)
 		{  }
+
+		AlphaFactory& operator = (const AlphaFactory& factory) {
+			this->Uppercase = factory.Uppercase;
+
+			return (*this);
+		}
 
 		std::shared_ptr<taswira::IBaseShape> CreateLetter(int letter, bool isUpper = true) {
 			return this->Uppercase[letter - int('A')];
@@ -188,10 +198,21 @@ namespace taswira {
 		std::array<std::shared_ptr<taswira::IBaseShape>, 26> Uppercase;
 	};
 
-	static std::vector<std::shared_ptr<taswira::IBaseShape>> CreatePhrase(std::string phrase, taswira::AlphaFactory& letterFactory) {
+	static std::vector<std::shared_ptr<taswira::IBaseShape>> CreatePhrase(std::string& phrase, taswira::AlphaFactory& letterFactory) {
 		std::vector<std::shared_ptr<taswira::IBaseShape>> Phrase;
 
 		for (char letter : phrase) {
+			Phrase.push_back(letterFactory.CreateLetter(letter));
+		}
+
+		return Phrase;
+	}
+
+	static std::vector<std::shared_ptr<taswira::IBaseShape>> CreatePhrase(const char* phrase, taswira::AlphaFactory& letterFactory) {
+		std::vector<std::shared_ptr<taswira::IBaseShape>> Phrase;
+		std::string PhraseS(phrase);
+
+		for (char letter : PhraseS) {
 			Phrase.push_back(letterFactory.CreateLetter(letter));
 		}
 

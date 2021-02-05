@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BitmapFactory.h" />
     <ClInclude Include="ObjectDims.h" />
     <ClInclude Include="AlphaUppercase.h" />
     <ClInclude Include="BaseShape.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="Taswira.h" />
     <ClInclude Include="TextBox.h" />
+    <ClInclude Include="UMLFactory.h" />
     <ClInclude Include="UMLObjects.h" />
   </ItemGroup>
   <ItemGroup>

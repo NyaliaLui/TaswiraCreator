@@ -57,6 +57,12 @@
     <ClInclude Include="ObjectDims.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UMLFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">

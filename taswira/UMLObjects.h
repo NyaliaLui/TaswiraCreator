@@ -30,9 +30,16 @@ namespace taswira {
                 Connectors(obj.Connectors)
             {  }
 
+            UMLObject& operator = (const UMLObject& obj) {
+                this->taswira::IBaseShape::operator=(obj);
+                this->Connectors = obj.Connectors;
+                return (*this);
+            }
+
             virtual ~UMLObject(void)
             {  }
 
+            //Connectors are for drying connections between UML objects
             virtual taswira::Connector& ConnectorLeft(void) {
                 return this->Connectors[0];
             }
@@ -57,181 +64,16 @@ namespace taswira {
                 return this->Connectors;
             }
 
+            virtual int ShapeHeight(void) {
+                return 0;
+            }
+
+            virtual int ShapeWidth(void) {
+                return 0;
+            }
+
         private:
             std::array<taswira::Connector, 4> Connectors;
-        };
-
-		class Inheritance : public UMLObject {
-        public:
-			Inheritance(void)
-                :Shape(taswira::UMLDims::AssociationLineLength, taswira::Colors::Black)
-			{  }
-
-            Inheritance(const taswira::Pixel& color)
-                :Shape(taswira::UMLDims::AssociationLineLength, color)
-            {  }
-
-            ~Inheritance(void)
-            {  }
-
-            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                this->Shape.DrawOnImage(image, startRow, startCol);
-
-                int LineLen = this->Shape.ShapeLineLength();
-
-                // Set the connectors
-                taswira::Connector Top(startRow + LineLen, startCol + (LineLen / 2));
-                taswira::Connector Bottom(startRow, startCol + (LineLen / 2));
-
-                this->ConnectorLeft() = Bottom;
-                this->ConnectorTop() = Top;
-                this->ConnectorRight() = Top;
-                this->ConnectorBottom() = Bottom;
-            }
-        private:
-            taswira::Triangle Shape;
-		};
-
-        class Aggregation : public UMLObject {
-        public:
-            Aggregation(void)
-                :Shape(taswira::UMLDims::AssociationLineLength, taswira::Colors::Black)
-            {  }
-
-            Aggregation(const taswira::Pixel& color)
-                :Shape(taswira::UMLDims::AssociationLineLength, color)
-            {  }
-
-            ~Aggregation(void)
-            {  }
-
-            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                this->Shape.DrawOnImage(image, startRow, startCol);
-
-                int LineLen = this->Shape.ShapeHeight();
-
-                // Set the connectors
-                taswira::Connector Left(startRow + (LineLen / 2), startCol);
-                taswira::Connector Top(startRow + LineLen - 1, startCol + (LineLen / 2));
-                taswira::Connector Right(startRow + (LineLen / 2), startCol + LineLen - 1);
-                taswira::Connector Bottom(startRow, startCol + (LineLen / 2));
-
-                this->ConnectorLeft() = Left;
-                this->ConnectorTop() = Top;
-                this->ConnectorRight() = Right;
-                this->ConnectorBottom() = Bottom;
-            }
-        private:
-            taswira::Diamond Shape;
-        };
-
-        // Simple refers to no association between objects
-        struct Simple : public UMLObject {
-            Simple(void)
-            {  }
-
-            ~Simple(void)
-            {  }
-        };
-
-        class PartialClass : public UMLObject {
-        public:
-            PartialClass(void)
-            {  }
-
-            PartialClass(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::Black)
-                :Text(rowDims, colDims, color),
-                Association(nullptr)
-            {  }
-
-            ~PartialClass(void)
-            {  }
-
-            void AddAssociation(std::shared_ptr<UMLObject> association) {
-                this->Association = association;
-            }
-
-            virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
-                this->Text.DrawOnImage(image, startRow, startCol);
-
-                int NumRows = this->Text.ShapeHeight();
-                int NumCols = this->Text.ShapeWidth();
-
-
-                if (this->Association != nullptr) {
-                    int MiddleCol = startCol + (NumCols / 2);
-                    int AssociationStartRow = startRow - taswira::UMLDims::AssociationLineLength;
-                    int AssociationStartCol = MiddleCol - (taswira::UMLDims::AssociationLineLength / 2);
-
-                    this->Association->DrawOnImage(image, AssociationStartRow, AssociationStartCol);
-                } else {
-                    //There is no association, so we use the class connectors itself
-
-                    // Set the connectors
-                    taswira::Connector Left(startRow + (NumRows / 2), startCol);
-                    taswira::Connector Top(startRow + NumRows - 1, startCol + (NumCols / 2));
-                    taswira::Connector Right(startRow + (NumRows / 2), startCol + NumCols - 1);
-                    taswira::Connector Bottom(startRow, startCol + (NumCols / 2));
-
-                    this->ConnectorLeft() = Left;
-                    this->ConnectorTop() = Top;
-                    this->ConnectorRight() = Right;
-                    this->ConnectorBottom() = Bottom;
-                }
-            }
-
-            virtual taswira::Connector& ConnectorLeft(void) {
-                if (this->Association == nullptr) {
-                    return UMLObject::ConnectorLeft();
-                }
-                else {
-                    return this->Association->ConnectorLeft();
-                }
-            }
-
-            virtual taswira::Connector& ConnectorTop(void) {
-                if (this->Association == nullptr) {
-                    return UMLObject::ConnectorTop();
-                }
-                else {
-                    return this->Association->ConnectorTop();
-                }
-            }
-
-            virtual taswira::Connector& ConnectorRight(void) {
-                if (this->Association == nullptr) {
-                    return UMLObject::ConnectorRight();
-                }
-                else {
-                    return this->Association->ConnectorRight();
-                }
-            }
-
-            virtual taswira::Connector& ConnectorBottom(void) {
-                if (this->Association == nullptr) {
-                    return UMLObject::ConnectorBottom();
-                }
-                else {
-                    return this->Association->ConnectorBottom();
-                }
-            }
-
-            virtual std::array<taswira::Connector, 4>& UMLConnectors(void) {
-                if (this->Association == nullptr) {
-                    return UMLObject::UMLConnectors();
-                }
-                else {
-                    return this->Association->UMLConnectors();
-                }
-            }
-
-            taswira::TextBox& ObjectText(void) {
-                return this->Text;
-            }
-
-        private:
-            taswira::TextBox Text;
-            std::shared_ptr<UMLObject> Association;
         };
 
         class Variable : public UMLObject {
@@ -273,6 +115,17 @@ namespace taswira {
             ~Variable(void)
             {  }
 
+            Variable& operator = (const Variable& variable) {
+                this->UMLObject::operator=(variable);
+                this->Visibility = variable.Visibility;
+                this->Name = variable.Name;
+                this->Padding = variable.Padding;
+                this->VisibilityHeight = variable.VisibilityHeight;
+                this->VisibilityWidth = variable.VisibilityWidth;
+
+                return (*this);
+            }
+
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 if (this->Visibility == nullptr) {
                     throw std::logic_error("Variable Visibility is Null");
@@ -294,11 +147,11 @@ namespace taswira {
                 this->VisibilityWidth = taswira::AlphaDims::ColDim;
             }
 
-            int ShapeHeight(void) {
+            virtual int ShapeHeight(void) {
                 return this->Name.ShapeHeight();
             }
 
-            int ShapeWith(void) {
+            virtual int ShapeWidth(void) {
                 return this->VisibilityWidth + this->Padding + this->Name.ShapeWidth();
             }
         private:
@@ -317,26 +170,42 @@ namespace taswira {
             // Minimum rowDims (i.e. Shape Height) for a FullClass is 100px so the 16px size letters
             // can fit in the upper quarter of the object. Otherwise you get undefined behaviour.
             FullClass(int rowDims, int colDims, const taswira::Pixel& color = taswira::Colors::Black)
-                :ObjectBounds(rowDims, colDims, color),
-                ClassName(rowDims / 4, colDims, color)
+                :UMLObject(color), 
+                ObjectBounds(rowDims, colDims, color),
+                ClassName(taswira::UMLDims::ClassNameHeight, colDims, color)
             {  }
 
-            FullClass(int rowDims, int colDims, const std::vector<std::shared_ptr<taswira::IBaseShape>>& phrase, const taswira::Pixel& color = taswira::Colors::Black)
-                :ObjectBounds(rowDims, colDims, color),
-                ClassName(rowDims / 4, colDims, phrase, color)
+            FullClass(int rowDims, int colDims, const std::vector<std::shared_ptr<taswira::IBaseShape>>& name, const taswira::Pixel& color = taswira::Colors::Black)
+                :UMLObject(color), 
+                ObjectBounds(rowDims, colDims, color),
+                ClassName(taswira::UMLDims::ClassNameHeight, colDims, name, color)
+            {  }
+
+            FullClass(const FullClass& full)
+                :UMLObject(full),
+                ObjectBounds(full.ObjectBounds),
+                ClassName(full.ClassName),
+                Variables(full.Variables)
             {  }
 
             ~FullClass(void)
             {  }
 
+            FullClass& operator = (const FullClass& full) {
+                this->UMLObject::operator=(full);
+                this->ObjectBounds = full.ObjectBounds;
+                this->ClassName = full.ClassName;
+                this->Variables = full.Variables;
+                return (*this);
+            }
+
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
                 int NumRows = this->ObjectBounds.ShapeHeight();
                 int NumCols = this->ObjectBounds.ShapeWidth();
-                int QuarterHeight = NumRows / 4;
-                int LastQuarter = startRow + (3 * QuarterHeight);
+                int ClassNameRowStart = startRow + (NumRows - taswira::UMLDims::ClassNameHeight);
 
                 // Draw border and and class name
-                this->ClassName.DrawOnImage(image, LastQuarter, startCol);
+                this->ClassName.DrawOnImage(image, ClassNameRowStart, startCol);
                 this->ObjectBounds.DrawOnImage(image, startRow, startCol);
 
                 // Set the connectors
@@ -351,7 +220,7 @@ namespace taswira {
                 this->ConnectorBottom() = Bottom;
 
                 // Draw variables
-                int Line = LastQuarter - this->Variables[0].ShapeHeight();
+                int Line = ClassNameRowStart - this->Variables[0].ShapeHeight();
                 for (taswira::UML::Variable& var : this->Variables) {
                     var.DrawOnImage(image, Line, startCol);
                     Line -= this->Variables[0].ShapeHeight();
@@ -359,17 +228,29 @@ namespace taswira {
             }
 
             template<typename VISTYPE>
-            void AddVariable(const std::vector<std::shared_ptr<taswira::IBaseShape>>& phrase) {
-                int PhraseColSize = (phrase.size() * taswira::AlphaDims::ColDim) + ((phrase.size() - 1) * taswira::TextDims::LetterPadding);
+            void AddVariable(const std::vector<std::shared_ptr<taswira::IBaseShape>>& name) {
+                int PhraseColSize = (name.size() * taswira::AlphaDims::ColDim) + ((name.size() - 1) * taswira::TextDims::LetterPadding);
 
-                taswira::UML::Variable Var(taswira::TextBoxNoBorder(20, PhraseColSize, phrase));
+                taswira::UML::Variable Var(taswira::TextBoxNoBorder(taswira::TextDims::NoBorderHeight, PhraseColSize, name));
                 Var.AddVisibility<VISTYPE>();
 
                 this->Variables.push_back(Var);
             }
 
+            void AddVariable(taswira::UML::Variable& var) {
+                this->Variables.push_back(var);
+            }
+
             taswira::TextBox& ObjectName(void) {
                 return this->ClassName;
+            }
+            
+            virtual int ShapeHeight(void) {
+                return this->ObjectBounds.ShapeHeight();
+            }
+
+            virtual int ShapeWidth(void) {
+                return this->ObjectBounds.ShapeWidth();
             }
 
         private:

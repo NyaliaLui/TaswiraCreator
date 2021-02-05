@@ -44,7 +44,7 @@ namespace taswira {
             int DeltaCol = col2 - col1;
             int DeltaRow = row2 - row1;
             int Result = (DeltaCol * DeltaCol) + (DeltaRow * DeltaRow);
-            Result = std::sqrt(Result);
+            Result = static_cast<int>(std::sqrt(Result));
 
             return Result;
         }

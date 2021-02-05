@@ -10,10 +10,12 @@ namespace taswira {
 
     namespace TextDims {
         static const int LetterPadding = 2;
+        static const int NoBorderHeight = 20;
     }
 
     namespace UMLDims {
         static const int AssociationLineLength = 20;
+        static const int ClassNameHeight = 25;
     }
 }
 

@@ -23,6 +23,12 @@ namespace taswira {
         virtual ~IBaseShape(void)
         {  }
 
+        IBaseShape& operator = (const IBaseShape& shape) {
+            this->Color = shape.Color;
+
+            return (*this);
+        }
+
         taswira::Pixel& ShapeColor(void) {
             return this->Color;
         }

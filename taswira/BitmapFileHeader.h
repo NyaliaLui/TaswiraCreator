@@ -39,6 +39,35 @@ namespace taswira {
             PixelOffset3(0),
             PixelOffset4(0)
         {  }
+
+        BitmapFileHeader(const BitmapFileHeader& fileheader)
+            :Sign1(fileheader.Sign1),
+            Sign2(fileheader.Sign2),
+            FileSize1(fileheader.FileSize1),
+            FileSize2(fileheader.FileSize2),
+            FileSize3(fileheader.FileSize3),
+            FileSize4(fileheader.FileSize3),
+            Reserve1(0),
+            Reserve2(0),
+            Reserve3(0),
+            Reserve4(0),
+            PixelOffset1(fileheader.PixelOffset1),
+            PixelOffset2(0),
+            PixelOffset3(0),
+            PixelOffset4(0)
+        {  }
+
+        BitmapFileHeader& operator = (const BitmapFileHeader& fileheader) {
+            this->Sign1 = fileheader.Sign1;
+            this->Sign2 = fileheader.Sign2;
+            this->FileSize1 = fileheader.FileSize1;
+            this->FileSize2 = fileheader.FileSize2;
+            this->FileSize3 = fileheader.FileSize3;
+            this->FileSize4 = fileheader.FileSize3;
+            this->PixelOffset1 = fileheader.PixelOffset1;
+
+            return (*this);
+        }
     };
 }
 

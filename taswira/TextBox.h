@@ -33,6 +33,13 @@ namespace taswira {
         ~TextBox(void)
         {  }
 
+        TextBox& operator = (const TextBox& text) {
+            this->taswira::Rectangle::operator=(text);
+            this->Phrase = text.Phrase;
+
+            return (*this);
+        }
+
         virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             // draw the border by calling Parent's DrawOnImage
             taswira::Rectangle::DrawOnImage(image, startRow, startCol);
@@ -42,7 +49,7 @@ namespace taswira {
             int TextBoxMidRow = this->ShapeHeight() / 2;
             int LetterMidRow = taswira::AlphaDims::RowDim / 2;
 
-            int PhrasePixSize = (this->Phrase.size() * taswira::AlphaDims::ColDim) + (this->Phrase.size() * taswira::TextDims::LetterPadding);
+            int PhrasePixSize = (static_cast<int>(this->Phrase.size()) * taswira::AlphaDims::ColDim) + (static_cast<int>(this->Phrase.size()) * taswira::TextDims::LetterPadding);
             int FreeColSpace = this->ShapeWidth() - PhrasePixSize;
 
             // identify the starting line and column
@@ -83,6 +90,13 @@ namespace taswira {
             Phrase(text.Phrase)
         {  }
 
+        TextBoxNoBorder& operator = (const TextBoxNoBorder& text) {
+            this->taswira::Parallelogram::operator=(text);
+            this->Phrase = text.Phrase;
+
+            return (*this);
+        }
+
         ~TextBoxNoBorder(void)
         {  }
 
@@ -92,7 +106,7 @@ namespace taswira {
             int TextBoxMidRow = this->ShapeHeight() / 2;
             int LetterMidRow = taswira::AlphaDims::RowDim / 2;
 
-            int PhrasePixSize = (this->Phrase.size() * taswira::AlphaDims::ColDim) + (this->Phrase.size() * taswira::TextDims::LetterPadding);
+            int PhrasePixSize = (static_cast<int>(this->Phrase.size()) * taswira::AlphaDims::ColDim) + (static_cast<int>(this->Phrase.size()) * taswira::TextDims::LetterPadding);
             int FreeColSpace = this->ShapeWidth() - PhrasePixSize;
 
             // identify the starting line and column
