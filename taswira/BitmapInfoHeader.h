@@ -48,6 +48,47 @@ namespace taswira {
                 EverythingElse[i] = (char)0;
             }
         }
+
+        BitmapInfoHeader(const BitmapInfoHeader& infoheader)
+            :Size1(infoheader.Size1),
+            Size2(0),
+            Size3(0),
+            Size4(0),
+            Width1(infoheader.Width1),
+            Width2(infoheader.Width2),
+            Width3(infoheader.Width3),
+            Width4(infoheader.Width4),
+            Height1(infoheader.Height1),
+            Height2(infoheader.Height2),
+            Height3(infoheader.Height3),
+            Height4(infoheader.Height4),
+            Planes1(1),
+            Planes2(0),
+            BitsPerPixel1(infoheader.BitsPerPixel1),
+            BitsPerPixel2(0)
+        {
+            for (int i = 0; i < 24; ++i) {
+                EverythingElse[i] = (char)0;
+            }
+        }
+
+        BitmapInfoHeader& operator = (const BitmapInfoHeader& infoheader) {
+            this->Size1 = infoheader.Size1;
+            this->Width1 = infoheader.Width1;
+            this->Width2 = infoheader.Width2;
+            this->Width3 = infoheader.Width3;
+            this->Width4 = infoheader.Width4;
+            this->Height1 = infoheader.Height1;
+            this->Height2 = infoheader.Height2;
+            this->Height3 = infoheader.Height3;
+            this->Height4 = infoheader.Height4;
+            this->BitsPerPixel1 = infoheader.BitsPerPixel1;
+            for (int i = 0; i < 24; ++i) {
+                EverythingElse[i] = (char)0;
+            }
+
+            return (*this);
+        }
     };
 }
 

@@ -3,7 +3,7 @@
 
 #include "Shapes.h"
 #include "BitmapImage.h"
-#include "AlphaDims.h"
+#include "ObjectDims.h"
 #include "Geometry.h"
 
 namespace taswira {
@@ -425,7 +425,7 @@ namespace taswira {
 
             O(const taswira::Pixel& color)
                 :Parallelogram(taswira::AlphaDims::RowDim, taswira::AlphaDims::ColDim, color),
-                OCircle(6, color)
+                OCircle(7, color)
             {  }
 
             virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {

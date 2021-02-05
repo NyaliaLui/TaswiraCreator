@@ -17,8 +17,20 @@ namespace taswira {
             LineLen(lineLength)
         {  }
 
+        Triangle(const Triangle& triangle)
+            :IBaseShape(triangle),
+            LineLen(triangle.LineLen)
+        {  }
+
         ~Triangle(void)
         {  }
+
+        Triangle& operator = (const Triangle& triangle) {
+            this->taswira::IBaseShape::operator=(triangle);
+            this->LineLen = triangle.LineLen;
+
+            return (*this);
+        }
 
         virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             int VertexRow1 = startRow, VertexCol1 = startCol;
@@ -56,6 +68,20 @@ namespace taswira {
             ColDims(colDims)
         {  }
 
+        Parallelogram(const Parallelogram& parallelogram)
+            :IBaseShape(parallelogram),
+            RowDims(parallelogram.RowDims),
+            ColDims(parallelogram.ColDims)
+        {  }
+
+        Parallelogram& operator = (const Parallelogram& parallelogram) {
+            this->taswira::IBaseShape::operator=(parallelogram);
+            this->RowDims = parallelogram.RowDims;
+            this->ColDims = parallelogram.ColDims;
+
+            return (*this);
+        }
+
         virtual ~Parallelogram(void)
         {  }
 
@@ -69,6 +95,14 @@ namespace taswira {
 
         int& ShapeWidth(void) {
             return this->ColDims;
+        }
+
+        void ShapeHeight(int rowDims) {
+            this->RowDims = rowDims;
+        }
+
+        void ShapeWidth(int colDims) {
+            this->ColDims = colDims;
         }
 
     private:
@@ -85,6 +119,15 @@ namespace taswira {
         Rectangle(int rowDims, int colDims, const taswira::Pixel& color)
             :Parallelogram(rowDims, colDims, color)
         {  }
+
+        Rectangle(const Rectangle& rectangle)
+            :Parallelogram(rectangle)
+        {  }
+
+        Rectangle& operator = (const Rectangle& rectangle) {
+            this->Parallelogram::operator=(rectangle);
+            return (*this);
+        }
 
         virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             int RowLen = startRow + this->ShapeHeight();
@@ -113,6 +156,15 @@ namespace taswira {
         Square(int dims, const taswira::Pixel& color)
             :Rectangle(dims, dims, color)
         {  }
+
+        Square(const Square& square)
+            :Rectangle(square)
+        {  }
+
+        Square& operator = (const Square& square) {
+            this->Rectangle::operator=(square);
+            return (*this);
+        }
     };
 
     class Diamond : public Parallelogram {
@@ -124,6 +176,15 @@ namespace taswira {
         Diamond(int dims, const taswira::Pixel& color)
             :Parallelogram(dims, dims, color)
         {  }
+
+        Diamond(const Diamond& diamond)
+            :Parallelogram(diamond)
+        {  }
+
+        Diamond& operator = (const Diamond& diamond) {
+            this->Parallelogram::operator=(diamond);
+            return (*this);
+        }
 
         virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
             int LineLen = this->ShapeHeight();
@@ -152,8 +213,19 @@ namespace taswira {
             Radius(radius)
         {  }
 
+        Circle(const Circle& circle)
+            :IBaseShape(circle),
+            Radius(circle.Radius)
+        {  }
+
         ~Circle(void)
         {  }
+
+        Circle& operator = (const Circle& circle) {
+            this->taswira::IBaseShape::operator=(circle);
+            this->Radius = circle.Radius;
+            return (*this);
+        }
 
         // Uses the Midpoint Circle Algorithm modified from https://www.geeksforgeeks.org/mid-point-circle-drawing-algorithm/
         virtual void DrawOnImage(taswira::BitmapImage& image, int CenterX, int CenterY) {
@@ -207,6 +279,171 @@ namespace taswira {
 
     private:
         int Radius;
+    };
+
+    class Plus : public taswira::IBaseShape {
+    public:
+        Plus(void)
+            :RowDims(0),
+            ColDims(0)
+        {  }
+
+        Plus(int rowDims, int colDims, const taswira::Pixel& color)
+            :IBaseShape(color),
+            RowDims(rowDims),
+            ColDims(colDims)
+        {  }
+
+        Plus(const Plus& plus)
+            :IBaseShape(plus),
+            RowDims(plus.RowDims),
+            ColDims(plus.ColDims)
+        {  }
+
+        virtual ~Plus(void)
+        {  }
+
+        Plus& operator = (const Plus& plus) {
+            this->taswira::IBaseShape::operator=(plus);
+            this->RowDims = plus.RowDims;
+            this->ColDims = plus.ColDims;
+            return (*this);
+        }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int MiddleRow = startRow + this->ShapeHeight() / 2;
+            int MiddleCol = startCol + this->ShapeWidth() / 2;
+
+            // horizontal bar
+            for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
+                image.PixelAt(MiddleRow, col) = this->ShapeColor();
+            }
+
+            // vertical bar
+            for (int row = startRow; row < startRow + this->ShapeHeight(); ++row) {
+                image.PixelAt(row, MiddleCol) = this->ShapeColor();
+            }
+        }
+
+        int& ShapeHeight(void) {
+            return this->RowDims;
+        }
+
+        int& ShapeWidth(void) {
+            return this->ColDims;
+        }
+
+    private:
+        int RowDims;
+        int ColDims;
+    };
+
+    class Minus : public taswira::IBaseShape {
+    public:
+        Minus(void)
+            :RowDims(0),
+            ColDims(0)
+        {  }
+
+        Minus(int rowDims, int colDims, const taswira::Pixel& color)
+            :IBaseShape(color),
+            RowDims(rowDims),
+            ColDims(colDims)
+        {  }
+
+        Minus(const Minus& minus)
+            :IBaseShape(minus),
+            RowDims(minus.RowDims),
+            ColDims(minus.ColDims)
+        {  }
+
+        virtual ~Minus(void)
+        {  }
+
+        Minus& operator = (const Minus& minus) {
+            this->taswira::IBaseShape::operator=(minus);
+            this->RowDims = minus.RowDims;
+            this->ColDims = minus.ColDims;
+            return (*this);
+        }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int MiddleRow = startRow + this->ShapeHeight() / 2;
+
+            // horizontal bar
+            for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
+                image.PixelAt(MiddleRow, col) = this->ShapeColor();
+            }
+        }
+
+        int& ShapeHeight(void) {
+            return this->RowDims;
+        }
+
+        int& ShapeWidth(void) {
+            return this->ColDims;
+        }
+
+    private:
+        int RowDims;
+        int ColDims;
+    };
+
+    class HashTag : public taswira::IBaseShape {
+    public:
+        HashTag(void)
+            :RowDims(0),
+            ColDims(0)
+        {  }
+
+        HashTag(int rowDims, int colDims, const taswira::Pixel& color)
+            :IBaseShape(color),
+            RowDims(rowDims),
+            ColDims(colDims)
+        {  }
+
+        HashTag(const HashTag& hash)
+            :IBaseShape(hash),
+            RowDims(hash.RowDims),
+            ColDims(hash.ColDims)
+        {  }
+
+        virtual ~HashTag(void)
+        {  }
+
+        HashTag& operator = (const HashTag& hash) {
+            this->taswira::IBaseShape::operator=(hash);
+            this->RowDims = hash.RowDims;
+            this->ColDims = hash.ColDims;
+            return (*this);
+        }
+
+        virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) {
+            int ThirdOfARow = this->ShapeHeight() / 3;
+            int MiddleCol = startCol + this->ShapeWidth() / 2;
+
+            // horizontal bars
+            for (int col = startCol; col < startCol + this->ShapeWidth(); ++col) {
+                image.PixelAt(startRow + ThirdOfARow, col) = this->ShapeColor();
+                image.PixelAt(startRow + (2 * ThirdOfARow), col) = this->ShapeColor();
+            }
+
+            // diagonal bars
+            taswira::Geometry::DrawLineOnImage(image, startRow, startCol, startRow + this->ShapeHeight() - 1, MiddleCol, this->ShapeColor());
+            taswira::Geometry::DrawLineOnImage(image, startRow, MiddleCol, startRow + this->ShapeHeight() - 1, startCol + this->ShapeWidth() - 1, this->ShapeColor());
+        }
+
+        int& ShapeHeight(void) {
+            return this->RowDims;
+        }
+
+        int& ShapeWidth(void) {
+            return this->ColDims;
+        }
+
+    private:
+        int RowDims;
+        int ColDims;
     };
 }
 

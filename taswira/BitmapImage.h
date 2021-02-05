@@ -35,6 +35,64 @@ namespace taswira {
             }
         }
 
+        BitmapImage(const BitmapImage& image)
+            :FileHeaderSize(image.FileHeaderSize),
+            InfoHeaderSize(image.InfoHeaderSize),
+            FileSize(image.FileSize),
+            PixelPadding(image.PixelPadding),
+            Height(image.Height),
+            Width(image.Width),
+            BytesPerPixel(image.BytesPerPixel),
+            Pallets(image.Pallets),
+            LeftMargin(image.LeftMargin),
+            RightMargin(image.RightMargin),
+            BottomMargin(image.BottomMargin),
+            TopMargin(image.TopMargin),
+            FileHeader(image.FileHeader),
+            InfoHeader(image.InfoHeader),
+            PixelData(new Pixel* [Height])
+        {
+            for (int i = 0; i < Height; ++i) {
+                PixelData[i] = new Pixel[Width];
+            }
+
+            for (int i = 0; i < Height; ++i) {
+                for (int j = 0; j < Width; ++j) {
+                    PixelData[i][j] = image.PixelData[i][j];
+                }
+            }
+        }
+
+        BitmapImage& operator = (const BitmapImage& image) {
+            this->FileHeaderSize = image.FileHeaderSize;
+            this->InfoHeaderSize = image.InfoHeaderSize;
+            this->FileSize = image.FileSize;
+            this->PixelPadding = image.PixelPadding;
+            this->Height = image.Height;
+            this->Width = image.Width;
+            this->BytesPerPixel = image.BytesPerPixel;
+            this->Pallets = image.Pallets;
+            this->LeftMargin = image.LeftMargin;
+            this->RightMargin = image.RightMargin;
+            this->BottomMargin = image.BottomMargin;
+            this->TopMargin = image.TopMargin;
+            this->FileHeader = image.FileHeader;
+            this->InfoHeader = image.InfoHeader;
+            this->PixelData = new Pixel * [Height];
+
+            for (int i = 0; i < Height; ++i) {
+                PixelData[i] = new Pixel[Width];
+            }
+
+            for (int i = 0; i < Height; ++i) {
+                for (int j = 0; j < Width; ++j) {
+                    PixelData[i][j] = image.PixelData[i][j];
+                }
+            }
+
+            return (*this);
+        }
+
         ~BitmapImage(void) {
             if (!PixelData || PixelData != NULL || PixelData != nullptr) {
                 for (int i = 0; i < Height; ++i) {

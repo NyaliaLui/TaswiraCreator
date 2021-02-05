@@ -25,6 +25,8 @@ namespace taswira {
 		Connector& operator = (const Connector& connector) {
 			this->Row = connector.Row;
 			this->Col = connector.Col;
+
+			return (*this);
 		}
 
 		int& RowLocation(void) {

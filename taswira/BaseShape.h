@@ -6,6 +6,7 @@
 #include "BitmapImage.h"
 
 namespace taswira {
+    // Shapes in Taswira are designed with the Command Pattern
     class IBaseShape {
     public:
         IBaseShape(void)
@@ -15,37 +16,27 @@ namespace taswira {
             :Color(color)
         {  }
 
+        IBaseShape(const IBaseShape& base)
+            :Color(base.Color)
+        {  }
+
         virtual ~IBaseShape(void)
         {  }
 
+        IBaseShape& operator = (const IBaseShape& shape) {
+            this->Color = shape.Color;
+
+            return (*this);
+        }
+
         taswira::Pixel& ShapeColor(void) {
             return this->Color;
-        }
-
-        taswira::Connector& ShapeBottomConnection(void) {
-            return this->BottomConnector;
-        }
-
-        taswira::Connector& ShapeTopConnection(void) {
-            return this->TopConnector;
-        }
-
-        taswira::Connector& ShapeLeftConnection(void) {
-            return this->LeftConnector;
-        }
-
-        taswira::Connector& ShapeRightConnection(void) {
-            return this->RightConnector;
         }
 
         virtual void DrawOnImage(taswira::BitmapImage& image, int startRow, int startCol) = 0;
 
     private:
         taswira::Pixel Color;
-        taswira::Connector BottomConnector;
-        taswira::Connector TopConnector;
-        taswira::Connector LeftConnector;
-        taswira::Connector RightConnector;
     };
 }
 
