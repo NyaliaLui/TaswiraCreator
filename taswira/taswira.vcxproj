@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BitmapFactory.h" />
+    <ClInclude Include="ClassParser.h" />
     <ClInclude Include="ObjectDims.h" />
     <ClInclude Include="AlphaUppercase.h" />
     <ClInclude Include="BaseShape.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="AlphaFactory.h" />
     <ClInclude Include="Pixel.h" />
+    <ClInclude Include="SampleHeader.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="Taswira.h" />
     <ClInclude Include="TextBox.h" />

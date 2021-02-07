@@ -9,3 +9,4 @@
 #include "UMLObjects.h"
 #include "UMLFactory.h"
 #include "BitmapFactory.h"
+#include "ClassParser.h"

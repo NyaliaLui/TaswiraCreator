@@ -63,6 +63,12 @@
     <ClInclude Include="BitmapFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SampleHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
